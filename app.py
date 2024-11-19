@@ -20,5 +20,10 @@ data = pd.DataFrame({
 })
 
 st.write("Aquí tienes un gráfico de muestra:")
-plt.plot(data['x'], data['y'])
-st.pyplot(plt)
+
+# Crear una figura de matplotlib
+fig, ax = plt.subplots()
+ax.plot(data['x'], data['y'])
+
+# Mostrar la figura en Streamlit
+st.pyplot(fig)
