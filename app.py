@@ -2,6 +2,10 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib  # Importa el módulo completo de matplotlib para cambiar el backend
+
+# Configurar el backend de matplotlib
+matplotlib.use("Agg")
 
 # Título de la app
 st.title("Aplicación de prueba en Streamlit")
