@@ -114,7 +114,6 @@ fsspec==2024.10.0
 future==1.0.0
 gast==0.6.0
 gcsfs==2024.10.0
-GDAL==3.6.4
 gdown==5.2.0
 geemap==0.35.1
 gensim==4.3.3
@@ -241,7 +240,6 @@ lazr.restfulclient==0.14.4
 lazr.uri==1.0.6
 lazy_loader==0.4
 libclang==18.1.1
-libcudf-cu12 @ https://pypi.nvidia.com/libcudf-cu12/libcudf_cu12-24.10.1-py3-none-manylinux_2_28_x86_64.whl
 librosa==0.10.2.post1
 lightgbm==4.5.0
 linkify-it-py==2.0.3
@@ -302,7 +300,6 @@ nvidia-cusparse-cu12==12.5.4.2
 nvidia-nccl-cu12==2.23.4
 nvidia-nvjitlink-cu12==12.6.77
 nvtx==0.2.10
-nx-cugraph-cu12 @ https://pypi.nvidia.com/nx-cugraph-cu12/nx_cugraph_cu12-24.10.0-py3-none-any.whl
 oauth2client==4.1.3
 oauthlib==3.2.2
 openai==1.54.4
@@ -496,7 +493,6 @@ toml==0.10.2
 tomli==2.1.0
 toolz==0.12.1
 torchsummary==1.5.1
-torchvision @ https://download.pytorch.org/whl/cu121/torchvision-0.20.1%2Bcu121-cp310-cp310-linux_x86_64.whl
 tornado==6.3.3
 tqdm==4.66.6
 traitlets==5.7.1
