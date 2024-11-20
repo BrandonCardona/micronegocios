@@ -44,8 +44,11 @@ with st.sidebar:
         key="metodo_secundario"
     )
     
-    # Botón calcular
-    st.button("Calcular", on_click=calcular)
+    # Verificar si el botón debe estar habilitado
+    boton_habilitado = metodo_principal != "Seleccione una opción" and metodo_secundario != ""
+
+    # Botón calcular (habilitado/deshabilitado)
+    st.button("Calcular", on_click=calcular, disabled=not boton_habilitado)
 
 # Contenedor derecho
 st.title("Métricas")
