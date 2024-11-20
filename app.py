@@ -13,20 +13,28 @@ with st.sidebar:
     # Lista desplegable para elegir el tipo de método
     metodo_principal = st.selectbox(
         "¿Qué método desea usar?",
-        ["Seleccione una opción", "Métodos supervisados", "Métodos no supervisados"]
+        ["Seleccione una opción", "Métodos supervisados", "Métodos no supervisados"],
+        format_func=lambda x: "Seleccione una opción" if x == "Seleccione una opción" else x
     )
     
     # Lista desplegable dependiente del método principal
     metodos_disponibles = []
     if metodo_principal == "Métodos supervisados":
-        metodos_disponibles = ["Seleccione una opción", "SVM (Super Vector Machines)", "Naive Bayes", "KNN", "Random Forest"]
+        metodos_disponibles = ["SVM (Super Vector Machines)", "Naive Bayes", "KNN", "Random Forest"]
     elif metodo_principal == "Métodos no supervisados":
-        metodos_disponibles = ["Seleccione una opción", "K-Means", "Clustering jerárquico", "DB-Scan", "GMM (Gaussian Mixture Clustering)"]
+        metodos_disponibles = ["K-Means", "Clustering jerárquico", "DB-Scan", "GMM (Gaussian Mixture Clustering)"]
     
-    metodo_secundario = st.selectbox("Métodos disponibles", metodos_disponibles)
+    metodo_secundario = st.selectbox(
+        "Métodos disponibles",
+        metodos_disponibles if metodo_principal != "Seleccione una opción" else [],
+        format_func=lambda x: "Seleccione una opción" if x == "Seleccione una opción" else x
+    )
     
-    # Botón calcular
-    if st.button("Calcular"):
+    # Verificar si ambas opciones han sido seleccionadas
+    boton_habilitado = metodo_principal != "Seleccione una opción" and metodo_secundario != ""
+    
+    # Botón calcular (habilitado/deshabilitado)
+    if st.button("Calcular", disabled=not boton_habilitado):
         st.session_state["calcular"] = True
 
 # Contenedor derecho
