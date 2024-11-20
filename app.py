@@ -6,7 +6,6 @@ pkl_filename = "models/pickle_modelsvm.pkl"
 with open(pkl_filename, 'rb') as file:
     model = pickle.load(file)
 
-st.write(modelo)
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
