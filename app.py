@@ -79,12 +79,13 @@ if st.session_state["calcular"]:
             st.write("- MSE (Error Cuadrático Medio)")
             st.write("- R2 Score")
             
+            st.write("DataFrame cargado:")
             # Leer el archivo .pkl con las variables preguardadas
             df_cargado, modelo_cargado, lista_cargada = cargar_variables_pkl()
                 
             # Mostrar las variables cargadas
-            st.write("DataFrame cargado:")
-            st.write(df_cargado)
+            
+            # st.write(df_cargado)
 
             st.write("Modelo cargado:")
             st.write(modelo_cargado)
