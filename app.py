@@ -1,11 +1,21 @@
 import streamlit as st
 import pickle
 
+# Ruta al archivo .pkl
+pkl_filename = "models/varios_variables.pkl"  # Cambia esta ruta por la ubicación de tu archivo .pkl
 
-pkl_filename = "models/pickle_modelsvm.pkl"
-with open(pkl_filename, 'rb') as file:
-    model = pickle.load(file)
-
+# Función para cargar las variables del archivo pkl
+def cargar_variables_pkl():
+    with open(pkl_filename, 'rb') as file:
+        variables = pickle.load(file)
+    
+    # Acceder a las variables almacenadas
+    df_cargado = variables['dataframe']
+    modelo_cargado = variables['modelo']
+    lista_cargada = variables['lista']
+    
+    # Mostrar las variables cargadas
+    return df_cargado, modelo_cargado, lista_cargada
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -68,6 +78,20 @@ if st.session_state["calcular"]:
             st.subheader("Métricas para Random Forest")
             st.write("- MSE (Error Cuadrático Medio)")
             st.write("- R2 Score")
+            
+            # Leer el archivo .pkl con las variables preguardadas
+            df_cargado, modelo_cargado, lista_cargada = cargar_variables_pkl()
+                
+            # Mostrar las variables cargadas
+            st.write("DataFrame cargado:")
+            st.write(df_cargado)
+
+            st.write("Modelo cargado:")
+            st.write(modelo_cargado)
+
+            st.write("Lista cargada:")
+            st.write(lista_cargada)
+
         elif metodo_confirmado_secundario in ["SVM (Super Vector Machines)", "Naive Bayes", "KNN"]:
             st.subheader(f"Métricas para {metodo_confirmado_secundario}")
             st.write("- Accuracy")
