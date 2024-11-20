@@ -3,6 +3,14 @@ import streamlit as st
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
 
+# Inicializar el estado de 'calcular' si no existe
+if "calcular" not in st.session_state:
+    st.session_state["calcular"] = False
+
+# Función para resetear el estado de 'calcular' al cambiar selecciones
+def reset_calculo():
+    st.session_state["calcular"] = False
+
 # Contenedor izquierdo
 with st.sidebar:
     st.title("Opciones")
@@ -14,7 +22,8 @@ with st.sidebar:
     metodo_principal = st.selectbox(
         "¿Qué método desea usar?",
         ["Seleccione una opción", "Métodos supervisados", "Métodos no supervisados"],
-        format_func=lambda x: "Seleccione una opción" if x == "Seleccione una opción" else x
+        key="metodo_principal",
+        on_change=reset_calculo,  # Resetea el cálculo si cambia esta opción
     )
     
     # Lista desplegable dependiente del método principal
@@ -27,7 +36,8 @@ with st.sidebar:
     metodo_secundario = st.selectbox(
         "Métodos disponibles",
         metodos_disponibles if metodo_principal != "Seleccione una opción" else [],
-        format_func=lambda x: "Seleccione una opción" if x == "Seleccione una opción" else x
+        key="metodo_secundario",
+        on_change=reset_calculo,  # Resetea el cálculo si cambia esta opción
     )
     
     # Verificar si ambas opciones han sido seleccionadas
@@ -39,7 +49,7 @@ with st.sidebar:
 
 # Contenedor derecho
 st.title("Métricas")
-if "calcular" in st.session_state and st.session_state["calcular"]:
+if st.session_state["calcular"]:
     if metodo_principal == "Métodos supervisados":
         if metodo_secundario == "Random Forest":
             st.subheader("Métricas para Random Forest")
