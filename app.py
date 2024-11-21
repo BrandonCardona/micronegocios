@@ -11,9 +11,9 @@ with open(pkl_filename, 'rb') as file:
 
 def asignar_variables_pkl():
     feature_importances_sorted = var_pkl['feature_importances_sorted']
-    X_value = var_pkl['X_value']
+    X_value_copy = var_pkl['X_value_copy']
     X_reduced = var_pkl['X_reduced']
-    return feature_importances_sorted, X_value, X_reduced
+    return feature_importances_sorted, X_value_copy, X_reduced
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -43,20 +43,20 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
     if st.sidebar.button("Variables más importantes"):
         st.write("Este botón mostrará las variables más importantes del modelo.")
 
-        feature_importances_sorted, X_value, X_reduced = asignar_variables_pkl()
+        feature_importances_sorted, X_value_copy, X_reduced = asignar_variables_pkl()
 
         st.write("feature_importances_sorted cargado:")
         st.write(feature_importances_sorted)
 
         st.write("X_value cargado:")
-        st.write(X_value)
+        st.write(X_value_copy)
 
         st.write("X_reduced cargada:")
         st.write(X_reduced)
 
         st.subheader("Gráfico de Importancia de Variables")
         
-        for_plot = pd.DataFrame({'x_axis': X_value.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
+        for_plot = pd.DataFrame({'x_axis': X_value_copy.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
         plt.figure(figsize=(10, 6)) 
         for_plot['y_axis'].plot.barh()
 
