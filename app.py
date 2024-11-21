@@ -265,29 +265,47 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.pyplot(visualizer.fig)
                 
                 # TERCER GRAFICO DE SILUETA
-                # plt.figure(figsize=(10, 7))
-                # y_ax_lower, y_ax_upper = 0, 0
-                # yticks = []
-                # for i, c in enumerate(np.unique(y_km)):
-                #     c_silhouette_vals = silhouette_vals[y_km == c]
-                #     c_silhouette_vals.sort()
-                #     y_ax_upper += len(c_silhouette_vals)
-                #     color = cm.jet(float(i) / n_clusters)
-                #     plt.barh(range(y_ax_lower, y_ax_upper), c_silhouette_vals, height=1.0,
-                #             edgecolor='none', color=color)
+                plt.figure(figsize=(10, 7))
+                y_ax_lower, y_ax_upper = 0, 0
+                yticks = []
 
-                #     yticks.append((y_ax_lower + y_ax_upper) / 2.)
-                #     y_ax_lower += len(c_silhouette_vals)
+                # Obtener el número de clusters localmente
+                n_clusters_local = len(np.unique(y_km))  # Calcular el número de clusters basados en y_km
 
-                # silhouette_avg = np.mean(silhouette_vals)
-                # plt.axvline(silhouette_avg, color="red", linestyle="--")
-                # plt.yticks(yticks, np.unique(y_km) + 1)
-                # plt.ylabel('Cluster')
-                # plt.xlabel('Coeficiente de Silueta')
-                # plt.title('Gráfico de Silueta para KMeans')
-                # plt.tight_layout()
-                # st.subheader("Gráfico de Silueta para KMeans")
-                # st.pyplot(plt)
+                # Depurar n_clusters_local
+                st.write(f"n_clusters_local: {n_clusters_local}")
+
+                # Bucle para graficar cada cluster
+                for i, c in enumerate(np.unique(y_km)):
+                    c_silhouette_vals = silhouette_vals[y_km == c]
+                    c_silhouette_vals.sort()
+                    y_ax_upper += len(c_silhouette_vals)
+                    
+                    # Validar que n_clusters_local sea mayor que 0
+                    if n_clusters_local == 0:
+                        st.error("n_clusters_local es 0, no se puede dividir")
+                        break
+                    
+                    # Calcular el color para cada cluster
+                    color = cm.jet(float(i) / n_clusters_local)
+                    plt.barh(range(y_ax_lower, y_ax_upper), c_silhouette_vals, height=1.0,
+                            edgecolor='none', color=color)
+
+                    yticks.append((y_ax_lower + y_ax_upper) / 2.0)
+                    y_ax_lower += len(c_silhouette_vals)
+
+                # Agregar línea de promedio de silueta
+                silhouette_avg = np.mean(silhouette_vals)
+                plt.axvline(silhouette_avg, color="red", linestyle="--")
+                plt.yticks(yticks, np.unique(y_km) + 1)
+                plt.ylabel('Cluster')
+                plt.xlabel('Coeficiente de Silueta')
+                plt.title('Gráfico de Silueta para KMeans')
+                plt.tight_layout()
+
+                # Mostrar el gráfico en Streamlit
+                st.subheader("Gráfico de Silueta para KMeans")
+                st.pyplot(plt)
 
                 # GRAFICO DE CENTROIDES
                 fig, ax = plt.subplots(figsize=(10, 7))  # Crear una figura y un eje
