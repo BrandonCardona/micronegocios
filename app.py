@@ -81,7 +81,6 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
         st.pyplot(plt)
 
 elif st.session_state["navbar_selection"] == "Métodos":
-    st.title("Menú de Métodos")
     # Inicializar estados en session_state
     if "metodo_confirmado_principal" not in st.session_state:
         st.session_state["metodo_confirmado_principal"] = None
@@ -118,8 +117,6 @@ elif st.session_state["navbar_selection"] == "Métodos":
         boton_habilitado = metodo_principal != "Seleccione una opción" and metodo_secundario != ""
         st.button("Calcular", on_click=calcular, disabled=not boton_habilitado)
 
-    # Contenedor derecho
-    st.title("Métricas")
     if st.session_state["calcular"]:
         metodo_confirmado_principal = st.session_state["metodo_confirmado_principal"]
         metodo_confirmado_secundario = st.session_state["metodo_confirmado_secundario"]
