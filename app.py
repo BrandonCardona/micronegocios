@@ -57,6 +57,11 @@ kmeans_1 = var_pkl['kmeans_1']
 cluster_df = var_pkl['cluster_df']
 score_kemans_g = var_pkl['score_kemans_g']
 
+Kmeans_results = var_pkl['Kmeans_results']
+score_kemans_s = Kmeans_results['score_kemans_s']
+score_kemans_c = Kmeans_results['score_kemans_c']
+score_kemans_d = Kmeans_results['score_kemans_d']
+
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -295,10 +300,10 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Mapa de Distancia entre Clusters (Intercluster Distance)")
                 st.pyplot(visualizer.fig)
 
-                st.markdown(f"<h2 style='font-size: 24px;'>Accuracy: {score_kemans_g:.8f}</h2>", unsafe_allow_html=True)
-                st.write("- Pureza")
-                st.write("- Silueta")
-                st.write("- Accuracy")
+                st.markdown(f"<h2 style='font-size: 24px;'>Gap Statistic Score: {score_kemans_g:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Silhouette Score: {score_kemans_s:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Calinski Harabasz Score: {score_kemans_c:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Davies Bouldin Score: {score_kemans_d:.8f}</h2>", unsafe_allow_html=True)
 
             elif metodo_confirmado_secundario == "Clustering jerárquico":
                 st.subheader("Métricas para Clustering jerárquico")
