@@ -57,7 +57,8 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
     if st.sidebar.button("Histogramas"):
         st.subheader("HISTOGRAMAS")
         num_columns = 2
-        num_rows = (len(X_value_copy.columns) + 1) // num_columns  
+        num_histograms = len(X_value_copy.columns)
+        num_rows = (num_histograms + 1) // num_columns  
         fig, axes = plt.subplots(nrows=num_rows, ncols=num_columns, figsize=(15, 6 * num_rows))
         axes = axes.flatten()
         for i, column in enumerate(X_value_copy.columns):
@@ -65,6 +66,8 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
             axes[i].set_title(column, fontsize=10)
             axes[i].set_xlabel('Valor')
             axes[i].set_ylabel('Frecuencia')
+        for j in range(num_histograms, len(axes)):
+            fig.delaxes(axes[j])
         plt.tight_layout()
         st.pyplot(plt)
 
