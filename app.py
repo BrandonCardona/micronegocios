@@ -2,7 +2,18 @@ import streamlit as st
 import pickle
 
 # Ruta al archivo .pkl
+pkl_filename_gc = "models/pickle_modelsvm.pkl"
+
 pkl_filename = "models/varios_variables.pkl"  # Cambia esta ruta por la ubicación de tu archivo .pkl
+
+with open(pkl_filename, 'rb') as file:
+    variables = pickle.load(file)
+
+def cargar_variables_pkl():
+    df_cargado = variables['dataframe']
+    modelo_cargado = variables['modelo']
+    lista_cargada = variables['lista']
+    return df_cargado, modelo_cargado, lista_cargada
 
 # Función para cargar las variables del archivo pkl
 def cargar_variables_pkl():
