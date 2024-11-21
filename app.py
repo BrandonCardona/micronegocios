@@ -166,7 +166,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                             xticklabels=class_labels, yticklabels=class_labels)
                 plt.xlabel("Predicted")
                 plt.ylabel("Actual")
-                plt.title("Confusion Matrix - SVM")
+                plt.title("Confusion Matrix - NB")
                 st.pyplot(plt)
 
             elif  metodo_confirmado_secundario == "KNN":
@@ -181,7 +181,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                             xticklabels=class_labels, yticklabels=class_labels)
                 plt.xlabel("Predicted")
                 plt.ylabel("Actual")
-                plt.title("Confusion Matrix - SVM")
+                plt.title("Confusion Matrix - KNN")
                 st.pyplot(plt)  
 
         elif metodo_confirmado_principal == "Métodos no supervisados":
