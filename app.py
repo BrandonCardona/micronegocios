@@ -12,11 +12,11 @@ with open(pkl_filename2, 'rb') as file:
 with open(pkl_filename, 'rb') as file:
     var_pkl = pickle.load(file)
 
-def cargar_variables_pkl():
-    df_cargado = variables['dataframe']
-    modelo_cargado = variables['modelo']
-    lista_cargada = variables['lista']
-    return df_cargado, modelo_cargado, lista_cargada
+# def cargar_variables_pkl():
+#     df_cargado = variables['dataframe']
+#     modelo_cargado = variables['modelo']
+#     lista_cargada = variables['lista']
+#     return df_cargado, modelo_cargado, lista_cargada
 
 def asignar_variables_pkl():
     feature_importances_sorted = var_pkl['feature_importances_sorted']
@@ -115,17 +115,17 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.write("- R2 Score")
                 
                 # Leer el archivo .pkl con las variables preguardadas
-                df_cargado, modelo_cargado, lista_cargada = cargar_variables_pkl()
+                # df_cargado, modelo_cargado, lista_cargada = cargar_variables_pkl()
                     
-                # Mostrar las variables cargadas
-                st.write("DataFrame cargado:")
-                st.write(df_cargado)
+                # # Mostrar las variables cargadas
+                # st.write("DataFrame cargado:")
+                # st.write(df_cargado)
 
-                st.write("Modelo cargado:")
-                st.write(modelo_cargado)
+                # st.write("Modelo cargado:")
+                # st.write(modelo_cargado)
 
-                st.write("Lista cargada:")
-                st.write(lista_cargada)
+                # st.write("Lista cargada:")
+                # st.write(lista_cargada)
 
                 feature_importances_sorted, X_value, X_reduced = asignar_variables_pkl()
 
