@@ -156,9 +156,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
             elif  metodo_confirmado_secundario == "SVM (Super Vector Machines)":
                 st.title("Resultados del Modelo Super Vector Machines")
-                st.write(f"**Accuracy**: {accuracy:.8f}")
-                st.write(f"**Recall**: {recall:.8f}")
-                st.write(f"**F1-score**: {f1_score:.8f}")
+                st.markdown(f"<h2 style='font-size: 24px;'>**Accuracy**: {accuracy:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>**Recall**: {recall:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>**F1-score**: {f1_score:.8f}</h2>", unsafe_allow_html=True)
 
                 st.write("### Matriz de Confusión")
                 plt.figure(figsize=(8, 6))
