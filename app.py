@@ -54,17 +54,17 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
         st.write("X_reduced cargada:")
         st.write(X_reduced)
 
-        # st.subheader("Gráfico de Importancia de Variables")
+        st.subheader("Gráfico de Importancia de Variables")
         
-        # for_plot = pd.DataFrame({'x_axis': X_value.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
-        # plt.figure(figsize=(10, 6)) 
-        # for_plot['y_axis'].plot.barh()
+        for_plot = pd.DataFrame({'x_axis': X_value.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
+        plt.figure(figsize=(10, 6)) 
+        for_plot['y_axis'].plot.barh()
 
-        # plt.title("Importancia de las Variables")
-        # plt.xlabel("Importancia")
-        # plt.ylabel("Variables")
+        plt.title("Importancia de las Variables")
+        plt.xlabel("Importancia")
+        plt.ylabel("Variables")
 
-        # st.pyplot(plt)
+        st.pyplot(plt)
 
         
     if st.sidebar.button("Matriz de correlación"):
