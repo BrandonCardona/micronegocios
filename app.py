@@ -258,8 +258,11 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.pyplot(plt)
 
                 # GRAFICO DE CENTROIDES
-                plt.figure(figsize=(10, 7))
-                plt.scatter(
+                # Crear el gráfico
+                fig, ax = plt.subplots(figsize=(10, 7))  # Crear una figura y un eje
+
+                # Graficar los puntos de datos
+                ax.scatter(
                     X_reduced['impactoCrecimientoEmpresa_encoded'], 
                     X_reduced['impactoVentasEmpresa'], 
                     c=labels, 
@@ -268,7 +271,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
                     alpha=0.7, 
                     label='Puntos de datos'
                 )
-                plt.scatter(
+
+                # Graficar los centroides
+                ax.scatter(
                     centroids[:, 0], 
                     centroids[:, 1], 
                     s=300, 
@@ -277,10 +282,16 @@ elif st.session_state["navbar_selection"] == "Métodos":
                     label='Centroides', 
                     edgecolor='black'
                 )
-                plt.legend(loc='upper right')
-                plt.title('Gráfica de Puntos de Datos con Centroides')
+
+                # Ajustar las leyendas y etiquetas
+                ax.legend(loc='upper right')
+                ax.set_title('Gráfica de Puntos de Datos con Centroides')
+                ax.set_xlabel('ImpactoCrecimiento')
+                ax.set_ylabel('ImpactoVentas')
+
+                # Mostrar el gráfico en Streamlit
                 st.subheader("Gráfico de Dispersión de los centroides")
-                st.pyplot(plt)
+                st.pyplot(fig)
 
                 st.write("- Pureza")
                 st.write("- Silueta")
