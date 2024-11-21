@@ -79,6 +79,11 @@ score_dbsacn_s = DBSCAN_results['score_AGclustering_s']
 score_dbsacn_c = DBSCAN_results['score_AGclustering_c']
 score_dbsacn_d = DBSCAN_results['score_AGclustering_d']
 
+eps_values = var_pkl['eps_values']
+n_clusters = var_pkl['n_clusters']
+optimal_clusters = var_pkl['optimal_clusters']
+optimal_eps = var_pkl['optimal_eps']
+
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -344,7 +349,26 @@ elif st.session_state["navbar_selection"] == "Métodos":
             elif metodo_confirmado_secundario == "DB-Scan":
                 st.subheader("Métricas para DB-Scan")
 
-            
+                plt.figure(figsize=(10, 6))
+                plt.plot(eps_values, n_clusters, marker='o', color='b')
+                plt.title('Número de Clusters por DBSCAN en función de Epsilon (eps)')
+                plt.xlabel('Valor de Epsilon (eps)')
+                plt.ylabel('Número de Clusters')
+                plt.grid(True)
+
+                # Añadir una anotación en el gráfico para indicar el número óptimo de clusters
+                plt.annotate(f'Optimal Clusters: {optimal_clusters}', 
+                            xy=(optimal_eps, optimal_clusters), 
+                            xytext=(optimal_eps + 0.1, optimal_clusters + 1),
+                            arrowprops=dict(facecolor='black', shrink=0.05),
+                            fontsize=12, color='red')
+
+                # Mostrar el gráfico en Streamlit
+                st.subheader("Método del Codo para DBSCAN")
+                st.pyplot(plt)
+
+                # Mostrar el valor óptimo de eps
+                st.write(f"Distancia en el codo (Valor óptimo de eps): {optimal_eps}")
 
                 st.markdown(f"<h2 style='font-size: 24px;'>eps Score: {eps_dbScan:.8f}</h2>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='font-size: 24px;'>Silhouette Score: {score_dbsacn_s:.8f}</h2>", unsafe_allow_html=True)
