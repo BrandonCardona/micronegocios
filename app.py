@@ -13,6 +13,13 @@ with open(pkl_filename, 'rb') as file:
 feature_importances_sorted = var_pkl['feature_importances_sorted']
 X_value_copy = var_pkl['X_value_copy']
 X_reduced = var_pkl['X_reduced']
+class_labels = var_pkl['class_labels']
+svm_results = var_pkl['svm_results']
+accuracy = svm_results['accuracy']
+recall = svm_results['recall']
+f1_score = svm_results['f1_score']
+classification_report = svm_results['classification_report']
+confusion_matrix = svm_results['confusion_matrix']
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -122,7 +129,25 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.write("- MSE (Error Cuadrático Medio)")
                 st.write("- R2 Score")
 
-            elif metodo_confirmado_secundario in ["SVM (Super Vector Machines)", "Naive Bayes", "KNN"]:
+            elif  metodo_confirmado_secundario == "SVM (Super Vector Machines)":
+                st.title("Resultados del Modelo SVM")
+                st.write(f"**Accuracy**: {accuracy:.2f}")
+                st.write(f"**Recall**: {recall:.2f}")
+                st.write(f"**F1-score**: {f1_score:.2f}")
+                st.write("### Classification Report")
+                st.text(classification_report)
+
+                # Mostrar la matriz de confusión
+                st.write("### Matriz de Confusión")
+                plt.figure(figsize=(8, 6))
+                sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues",
+                            xticklabels=class_labels, yticklabels=class_labels)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                plt.title("Confusion Matrix - SVM")
+                st.pyplot(plt)
+
+            elif metodo_confirmado_secundario in ["Naive Bayes", "KNN"]:
                 st.subheader(f"Métricas para {metodo_confirmado_secundario}")
                 st.write("- Accuracy")
                 st.write("- Recall")
