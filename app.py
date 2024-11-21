@@ -3,6 +3,8 @@ import pickle
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
+from yellowbrick.cluster import KElbowVisualizer
+from sklearn.cluster import KMeans
 
 # Ruta al archivo .pkl
 pkl_filename = "models/pickle_modelsvm.pkl"
@@ -40,6 +42,8 @@ y_pr_RF = RF_results['y_pr']
 y_te_RF = RF_results['y_te']
 
 distortions = var_pkl['distortions']
+model_Kmeans = var_pkl['model_Kmeans']
+X_train_reduced_Kmeans = var_pkl['X_train_reduced_Kmeans']
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -214,6 +218,11 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Método del Codo (Elbow Method) para KMeans")
                 st.pyplot(plt)
 
+                visualizer = KElbowVisualizer(model_Kmeans, k=(1, 10), timings=True)
+                visualizer.fit(X_train_reduced_Kmeans)
+                st.subheader("Método del Codo (Elbow Method) para KMeans")
+                visualizer.show()  
+                
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
