@@ -10,13 +10,9 @@ pkl_filename = "models/pickle_modelsvm.pkl"
 with open(pkl_filename, 'rb') as file:
     var_pkl = pickle.load(file)
 
-def asignar_variables_pkl():
-    feature_importances_sorted = var_pkl['feature_importances_sorted']
-    X_value_copy = var_pkl['X_value_copy']
-    X_reduced = var_pkl['X_reduced']
-    return feature_importances_sorted, X_value_copy, X_reduced
-
-feature_importances_sorted, X_value_copy, X_reduced = asignar_variables_pkl()
+feature_importances_sorted = var_pkl['feature_importances_sorted']
+X_value_copy = var_pkl['X_value_copy']
+X_reduced = var_pkl['X_reduced']
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
