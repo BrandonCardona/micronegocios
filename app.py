@@ -5,6 +5,8 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from yellowbrick.cluster import KElbowVisualizer
 from sklearn.cluster import KMeans
+import numpy as np
+from matplotlib import cm
 
 # Ruta al archivo .pkl
 pkl_filename = "models/pickle_modelsvm.pkl"
@@ -44,6 +46,10 @@ y_te_RF = RF_results['y_te']
 distortions = var_pkl['distortions']
 model_Kmeans = var_pkl['model_Kmeans']
 X_train_reduced_Kmeans = var_pkl['X_train_reduced_Kmeans']
+
+y_km = var_pkl['y_km']
+n_clusters = var_pkl['n_clusters']
+silhouette_vals = var_pkl['silhouette_vals']
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -209,6 +215,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
             if metodo_confirmado_secundario == "K-Means":
                 st.subheader("Métricas para K-Means")
 
+                # PRIMER GRAFICO DE CODO
                 plt.figure(figsize=(8, 6))
                 plt.plot(range(1, 7), distortions, marker='o')
                 plt.title('Método del Codo para Determinar el Número Óptimo de Clusters')
@@ -218,9 +225,36 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Método del Codo (Elbow Method) para KMeans")
                 st.pyplot(plt)
 
+                # SEGUNDO GRAFICO DE CODO
                 visualizer = KElbowVisualizer(model_Kmeans, k=(1, 10), timings=True)
                 visualizer.fit(X_train_reduced_Kmeans)
                 st.pyplot(visualizer.fig)
+                
+                # TERCER GRAFICO DE CODO
+                plt.figure(figsize=(10, 7))
+                y_ax_lower, y_ax_upper = 0, 0
+                yticks = []
+                for i, c in enumerate(np.unique(y_km)):
+                    c_silhouette_vals = silhouette_vals[y_km == c]
+                    c_silhouette_vals.sort()
+                    y_ax_upper += len(c_silhouette_vals)
+                    color = cm.jet(float(i) / n_clusters)
+                    plt.barh(range(y_ax_lower, y_ax_upper), c_silhouette_vals, height=1.0,
+                            edgecolor='none', color=color)
+
+                    yticks.append((y_ax_lower + y_ax_upper) / 2.)
+                    y_ax_lower += len(c_silhouette_vals)
+
+                silhouette_avg = np.mean(silhouette_vals)
+                plt.axvline(silhouette_avg, color="red", linestyle="--")
+                plt.yticks(yticks, np.unique(y_km) + 1)
+                plt.ylabel('Cluster')
+                plt.xlabel('Coeficiente de Silueta')
+                plt.title('Gráfico de Silueta para KMeans')
+                plt.tight_layout()
+                st.subheader("Gráfico de Silueta para KMeans")
+                st.pyplot(plt)
+
                 
                 st.write("- Pureza")
                 st.write("- Silueta")
