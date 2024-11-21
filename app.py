@@ -80,7 +80,7 @@ score_dbsacn_c = DBSCAN_results['score_AGclustering_c']
 score_dbsacn_d = DBSCAN_results['score_AGclustering_d']
 
 eps_values = var_pkl['eps_values']
-# n_clusterss = var_pkl['n_clusters']
+n_clusters = var_pkl['n_clusters']
 optimal_clusters = var_pkl['optimal_clusters']
 optimal_eps = var_pkl['optimal_eps']
 
@@ -265,29 +265,29 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.pyplot(visualizer.fig)
                 
                 # TERCER GRAFICO DE SILUETA
-                plt.figure(figsize=(10, 7))
-                y_ax_lower, y_ax_upper = 0, 0
-                yticks = []
-                for i, c in enumerate(np.unique(y_km)):
-                    c_silhouette_vals = silhouette_vals[y_km == c]
-                    c_silhouette_vals.sort()
-                    y_ax_upper += len(c_silhouette_vals)
-                    color = cm.jet(float(i) / n_clusters)
-                    plt.barh(range(y_ax_lower, y_ax_upper), c_silhouette_vals, height=1.0,
-                            edgecolor='none', color=color)
+                # plt.figure(figsize=(10, 7))
+                # y_ax_lower, y_ax_upper = 0, 0
+                # yticks = []
+                # for i, c in enumerate(np.unique(y_km)):
+                #     c_silhouette_vals = silhouette_vals[y_km == c]
+                #     c_silhouette_vals.sort()
+                #     y_ax_upper += len(c_silhouette_vals)
+                #     color = cm.jet(float(i) / n_clusters)
+                #     plt.barh(range(y_ax_lower, y_ax_upper), c_silhouette_vals, height=1.0,
+                #             edgecolor='none', color=color)
 
-                    yticks.append((y_ax_lower + y_ax_upper) / 2.)
-                    y_ax_lower += len(c_silhouette_vals)
+                #     yticks.append((y_ax_lower + y_ax_upper) / 2.)
+                #     y_ax_lower += len(c_silhouette_vals)
 
-                silhouette_avg = np.mean(silhouette_vals)
-                plt.axvline(silhouette_avg, color="red", linestyle="--")
-                plt.yticks(yticks, np.unique(y_km) + 1)
-                plt.ylabel('Cluster')
-                plt.xlabel('Coeficiente de Silueta')
-                plt.title('Gráfico de Silueta para KMeans')
-                plt.tight_layout()
-                st.subheader("Gráfico de Silueta para KMeans")
-                st.pyplot(plt)
+                # silhouette_avg = np.mean(silhouette_vals)
+                # plt.axvline(silhouette_avg, color="red", linestyle="--")
+                # plt.yticks(yticks, np.unique(y_km) + 1)
+                # plt.ylabel('Cluster')
+                # plt.xlabel('Coeficiente de Silueta')
+                # plt.title('Gráfico de Silueta para KMeans')
+                # plt.tight_layout()
+                # st.subheader("Gráfico de Silueta para KMeans")
+                # st.pyplot(plt)
 
                 # GRAFICO DE CENTROIDES
                 fig, ax = plt.subplots(figsize=(10, 7))  # Crear una figura y un eje
@@ -350,7 +350,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Métricas para DB-Scan")
 
                 plt.figure(figsize=(10, 6))
-                plt.plot(eps_values, n_clusterss, marker='o', color='b')
+                plt.plot(eps_values, n_clusters, marker='o', color='b')
                 plt.title('Número de Clusters por DBSCAN en función de Epsilon (eps)')
                 plt.xlabel('Valor de Epsilon (eps)')
                 plt.ylabel('Número de Clusters')
