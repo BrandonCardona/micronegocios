@@ -33,6 +33,12 @@ recall_knn = knn_results['recall']
 f1_score_knn = knn_results['f1_score']
 confusion_matrix_knn = knn_results['confusion_matrix']
 
+RF_results = var_pkl['RF_results']
+r2_RF = RF_results['r2_RF']
+mse_RF = RF_results['mse_RF']
+y_pr_RF = RF_results['y_pr']
+y_te_RF = RF_results['y_te']
+
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
 
@@ -136,8 +142,17 @@ elif st.session_state["navbar_selection"] == "Métodos":
         if metodo_confirmado_principal == "Métodos supervisados":
             if metodo_confirmado_secundario == "Random Forest":
                 st.subheader("Métricas para Random Forest")
-                st.write("- MSE (Error Cuadrático Medio)")
-                st.write("- R2 Score")
+                st.write(f"**- MSE (Error Cuadrático Medio)**: {mse_RF:.8f}")
+                st.write(f"**- R2 Score**: {r2_RF:.8f}")
+
+                residuos = y_pr_RF - y_te_RF
+                st.subheader("Distribución de los Residuos (Errores)")
+                plt.figure(figsize=(8,6))
+                sns.histplot(residuos, kde=True, color='green')
+                plt.title('Distribución de los Residuos (Errores)')
+                plt.xlabel('Residuo (Predicción - Valor Real)')
+                plt.ylabel('Frecuencia')
+                st.pyplot(plt)
 
             elif  metodo_confirmado_secundario == "SVM (Super Vector Machines)":
                 st.title("Resultados del Modelo Super Vector Machines")
