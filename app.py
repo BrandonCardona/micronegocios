@@ -33,20 +33,16 @@ if st.sidebar.button("Métodos"):
 if st.sidebar.button("Predicciones"):
     set_navbar("Predicciones")
 
-# Sección correspondiente al botón seleccionado
+# Menú desplegable de la izquierda para "Preprocesamiento"
 if st.session_state["navbar_selection"] == "Preprocesamiento":
-    st.title("Menú de Preprocesamiento")
-    
-    # Botones para "Variables más importantes" y "Matriz de correlación"
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("Variables más importantes"):
-            st.write("Este botón mostrará las variables más importantes del modelo.")
+    st.sidebar.title("Opciones de Preprocesamiento")
 
-    with col2:
-        if st.button("Matriz de correlación"):
-            st.write("Este botón mostrará la matriz de correlación de las variables.")
+    # Agregar los dos botones en el menú desplegable de la izquierda (barra lateral)
+    if st.sidebar.button("Variables más importantes"):
+        st.write("Este botón mostrará las variables más importantes del modelo.")
+        
+    if st.sidebar.button("Matriz de correlación"):
+        st.write("Este botón mostrará la matriz de correlación de las variables.")
 
 elif st.session_state["navbar_selection"] == "Métodos":
     st.title("Menú de Métodos")
