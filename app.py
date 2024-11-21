@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 from matplotlib import pyplot as plt
+import seaborn as sns
 
 # Ruta al archivo .pkl
 pkl_filename = "models/pickle_modelsvm.pkl"
@@ -14,6 +15,8 @@ def asignar_variables_pkl():
     X_value_copy = var_pkl['X_value_copy']
     X_reduced = var_pkl['X_reduced']
     return feature_importances_sorted, X_value_copy, X_reduced
+
+feature_importances_sorted, X_value_copy, X_reduced = asignar_variables_pkl()
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -41,20 +44,7 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
 
     # Agregar los dos botones en el menú desplegable de la izquierda (barra lateral)
     if st.sidebar.button("Variables más importantes"):
-        st.write("Este botón mostrará las variables más importantes del modelo.")
-
-        feature_importances_sorted, X_value_copy, X_reduced = asignar_variables_pkl()
-
-        st.write("feature_importances_sorted cargado:")
-        st.write(feature_importances_sorted)
-
-        st.write("X_value cargado:")
-        st.write(X_value_copy)
-
-        st.write("X_reduced cargada:")
-        st.write(X_reduced)
-
-        st.subheader("Gráfico de Importancia de Variables")
+        st.subheader("VARIABLES MAS IMPORTANTES EMPLEANDO RANDOM FOREST")
         
         for_plot = pd.DataFrame({'x_axis': X_value_copy.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
         plt.figure(figsize=(10, 6)) 
@@ -63,12 +53,13 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
         plt.title("Importancia de las Variables")
         plt.xlabel("Importancia")
         plt.ylabel("Variables")
-
         st.pyplot(plt)
-
         
     if st.sidebar.button("Matriz de correlación"):
-        st.write("Este botón mostrará la matriz de correlación de las variables.")
+        st.subheader("MATRIZ DE CORRELACIÓN")
+        plt.figure(figsize=(20, 20))  
+        sns.heatmap(X_reduced.corr(), annot=True, cmap='Spectral', linewidths=0.1)
+        st.pyplot(plt)
 
 elif st.session_state["navbar_selection"] == "Métodos":
     st.title("Menú de Métodos")
