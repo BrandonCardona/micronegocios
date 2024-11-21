@@ -17,6 +17,8 @@ with open(pkl_filename, 'rb') as file:
 feature_importances_sorted = var_pkl['feature_importances_sorted']
 X_value_copy = var_pkl['X_value_copy']
 X_reduced = var_pkl['X_reduced']
+centroids = var_pkl['centroids']
+labels = var_pkl['labels']
 class_labels = var_pkl['class_labels']
 
 svm_results = var_pkl['svm_results']
@@ -230,7 +232,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 visualizer.fit(X_train_reduced_Kmeans)
                 st.pyplot(visualizer.fig)
                 
-                # TERCER GRAFICO DE CODO
+                # TERCER GRAFICO DE SILUETA
                 plt.figure(figsize=(10, 7))
                 y_ax_lower, y_ax_upper = 0, 0
                 yticks = []
@@ -255,7 +257,31 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Gráfico de Silueta para KMeans")
                 st.pyplot(plt)
 
-                
+                # GRAFICO DE CENTROIDES
+                plt.figure(figsize=(10, 7))
+                plt.scatter(
+                    X_reduced['impactoCrecimientoEmpresa_encoded'], 
+                    X_reduced['impactoVentasEmpresa'], 
+                    c=labels, 
+                    cmap='viridis', 
+                    s=100, 
+                    alpha=0.7, 
+                    label='Puntos de datos'
+                )
+                plt.scatter(
+                    centroids[:, 0], 
+                    centroids[:, 1], 
+                    s=300, 
+                    marker='X', 
+                    c='red', 
+                    label='Centroides', 
+                    edgecolor='black'
+                )
+                plt.legend(loc='upper right')
+                plt.title('Gráfica de Puntos de Datos con Centroides')
+                st.subheader("Gráfico de Dispersión de los centroides")
+                st.pyplot(plt)
+
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
