@@ -62,6 +62,8 @@ score_kemans_s = Kmeans_results['score_kemans_s']
 score_kemans_c = Kmeans_results['score_kemans_c']
 score_kemans_d = Kmeans_results['score_kemans_d']
 
+modelHC = var_pkl['modelHC']
+
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -151,7 +153,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
         if metodo_principal == "Métodos supervisados":
             metodos_disponibles = ["SVM (Super Vector Machines)", "Naive Bayes", "KNN", "Random Forest"]
         elif metodo_principal == "Métodos no supervisados":
-            metodos_disponibles = ["K-Means", "Clustering jerárquico", "DB-Scan", "GMM (Gaussian Mixture Clustering)"]
+            metodos_disponibles = ["K-Means", "Clustering jerárquico", "DB-Scan"]
         metodo_secundario = st.selectbox(
             "Métodos disponibles",
             metodos_disponibles if metodo_principal != "Seleccione una opción" else [], 
@@ -306,19 +308,18 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.markdown(f"<h2 style='font-size: 24px;'>Davies Bouldin Score: {score_kemans_d:.8f}</h2>", unsafe_allow_html=True)
 
             elif metodo_confirmado_secundario == "Clustering jerárquico":
+
                 st.subheader("Métricas para Clustering jerárquico")
+                visualizer = KElbowVisualizer(modelHC, k=(2, 30), timings=True)
+                visualizer.fit(cluster_df)
+                st.subheader("Método del Codo para Clustering Jerárquico (AgglomerativeClustering)")
+                st.pyplot(visualizer.fig) 
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
 
             elif metodo_confirmado_secundario == "DB-Scan":
                 st.subheader("Métricas para DB-Scan")
-                st.write("- Pureza")
-                st.write("- Silueta")
-                st.write("- Accuracy")
-
-            elif metodo_confirmado_secundario == "GMM (Gaussian Mixture Clustering)":
-                st.subheader("Métricas para GMM (Gaussian Mixture Clustering)")
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
