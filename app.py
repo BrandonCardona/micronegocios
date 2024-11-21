@@ -9,6 +9,8 @@ from sklearn.cluster import KMeans
 import numpy as np
 from matplotlib import cm
 import scipy.cluster.hierarchy as shc
+from sklearn.neighbors import NearestNeighbors
+from kneed import KneeLocator
 
 # Ruta al archivo .pkl
 pkl_filename = "models/pickle_modelsvm.pkl"
@@ -69,6 +71,9 @@ HC_results = var_pkl['HC_results']
 score_AGclustering_s = HC_results['score_AGclustering_s']
 score_AGclustering_c = HC_results['score_AGclustering_c']
 score_AGclustering_d = HC_results['score_AGclustering_d']
+
+eps_dbScan = var_pkl['eps_dbScan']
+cluster_df_dbScan = var_pkl['cluster_df_dbScan']
 
 
 # Configuración de la interfaz
@@ -334,6 +339,29 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
             elif metodo_confirmado_secundario == "DB-Scan":
                 st.subheader("Métricas para DB-Scan")
+
+                nearest_neighbors = NearestNeighbors(n_neighbors=11)
+                neighbors = nearest_neighbors.fit(cluster_df_dbScan)
+                distances, indices = neighbors.kneighbors(cluster_df_dbScan)
+                distances = np.sort(distances[:, 10], axis=0)  # Tomar las distancias del k-ésimo vecino más cercano
+
+                # Usar KneeLocator para encontrar el "codo" en la curva
+                i = np.arange(len(distances))
+                knee = KneeLocator(i, distances, S=1, curve='convex', direction='increasing', interp_method='polynomial')
+
+                # Crear la gráfica del codo
+                fig = plt.figure(figsize=(5, 5))
+                knee.plot_knee()
+                plt.xlabel("Puntos")
+                plt.ylabel("Distancia")
+
+                # Mostrar el gráfico en Streamlit
+                st.subheader("Método del Codo para DBSCAN")
+                st.pyplot(fig)
+
+                # Mostrar el valor de la distancia en el "codo"
+                st.write(f"Distancia en el codo: {distances[knee.knee]}")
+
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
