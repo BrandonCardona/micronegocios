@@ -4,6 +4,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
 from yellowbrick.cluster import KElbowVisualizer
+from yellowbrick.cluster import InterclusterDistance
 from sklearn.cluster import KMeans
 import numpy as np
 from matplotlib import cm
@@ -52,6 +53,8 @@ X_train_reduced_Kmeans = var_pkl['X_train_reduced_Kmeans']
 y_km = var_pkl['y_km']
 n_clusters = var_pkl['n_clusters']
 silhouette_vals = var_pkl['silhouette_vals']
+kmeans_1 = var_pkl['kmeans_1']
+cluster_df = var_pkl['cluster_df']
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -281,6 +284,13 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 ax.set_title('Gráfica de Puntos de Datos con Centroides')
                 st.subheader("Gráfico de Dispersión de los centroides")
                 st.pyplot(fig)
+
+                # MAPA DE DISTANCIA ENTRE CLUSTERS
+                visualizer = InterclusterDistance(kmeans_1)
+                visualizer.fit(cluster_df)
+                st.subheader("Mapa de Distancia entre Clusters (Intercluster Distance)")
+                st.pyplot(visualizer.fig)
+
 
                 st.write("- Pureza")
                 st.write("- Silueta")
