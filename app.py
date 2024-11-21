@@ -130,14 +130,11 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.write("- R2 Score")
 
             elif  metodo_confirmado_secundario == "SVM (Super Vector Machines)":
-                st.title("Resultados del Modelo SVM")
-                st.write(f"**Accuracy**: {accuracy:.2f}")
-                st.write(f"**Recall**: {recall:.2f}")
-                st.write(f"**F1-score**: {f1_score:.2f}")
-                st.write("### Classification Report")
-                st.text(classification_report)
+                st.title("Resultados del Modelo Super Vector Machines")
+                st.write(f"**Accuracy**: {accuracy:.8f}")
+                st.write(f"**Recall**: {recall:.8f}")
+                st.write(f"**F1-score**: {f1_score:.8f}")
 
-                # Mostrar la matriz de confusión
                 st.write("### Matriz de Confusión")
                 plt.figure(figsize=(8, 6))
                 sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues",
@@ -147,12 +144,20 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 plt.title("Confusion Matrix - SVM")
                 st.pyplot(plt)
 
-            elif metodo_confirmado_secundario in ["Naive Bayes", "KNN"]:
-                st.subheader(f"Métricas para {metodo_confirmado_secundario}")
+            elif  metodo_confirmado_secundario == "Naive Bayes":
+                st.title("Resultados del Modelo Naive Bayes")
                 st.write("- Accuracy")
                 st.write("- Recall")
                 st.write("- F1 Score")
                 st.write("- Matriz de confusión")
+
+            elif  metodo_confirmado_secundario == "KNN":
+                st.title("Resultados del Modelo K-Nearest Neighbors")
+                st.write("- Accuracy")
+                st.write("- Recall")
+                st.write("- F1 Score")
+                st.write("- Matriz de confusión")    
+
         elif metodo_confirmado_principal == "Métodos no supervisados":
             st.subheader(f"Métricas para {metodo_confirmado_secundario}")
             st.write("- Pureza")
