@@ -65,6 +65,10 @@ score_kemans_d = Kmeans_results['score_kemans_d']
 
 modelHC = var_pkl['modelHC']
 X_train_scaled_HC = var_pkl['X_train_scaled_HC']
+HC_results = var_pkl['HC_results']
+score_AGclustering_s = HC_results['score_AGclustering_s']
+score_AGclustering_c = HC_results['score_AGclustering_c']
+score_AGclustering_d = HC_results['score_AGclustering_d']
 
 
 # Configuración de la interfaz
@@ -324,9 +328,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.pyplot(plt)
                 
                 
-                st.write("- Pureza")
-                st.write("- Silueta")
-                st.write("- Accuracy")
+                st.markdown(f"<h2 style='font-size: 24px;'>Silhouette Score: {score_AGclustering_s:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Calinski Harabasz Score: {score_AGclustering_c:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Davies Bouldin Score: {score_AGclustering_d:.8f}</h2>", unsafe_allow_html=True)
 
             elif metodo_confirmado_secundario == "DB-Scan":
                 st.subheader("Métricas para DB-Scan")
