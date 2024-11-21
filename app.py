@@ -2,18 +2,28 @@ import streamlit as st
 import pickle
 
 # Ruta al archivo .pkl
-pkl_filename_gc = "models/pickle_modelsvm.pkl"
+pkl_filename = "models/pickle_modelsvm.pkl"
 
-pkl_filename = "models/varios_variables.pkl"  # Cambia esta ruta por la ubicación de tu archivo .pkl
+pkl_filename2 = "models/varios_variables.pkl"  # Cambia esta ruta por la ubicación de tu archivo .pkl
+
+with open(pkl_filename2, 'rb') as file:
+    variables = pickle.load(file)
 
 with open(pkl_filename, 'rb') as file:
-    variables = pickle.load(file)
+    var_pkl = pickle.load(file)
 
 def cargar_variables_pkl():
     df_cargado = variables['dataframe']
     modelo_cargado = variables['modelo']
     lista_cargada = variables['lista']
     return df_cargado, modelo_cargado, lista_cargada
+
+def asignar_variables_pkl():
+    feature_importances_sorted = var_pkl['feature_importances_sorted']
+    X_value = var_pkl['X_value']
+    X_reduced = var_pkl['X_reduced']
+    return feature_importances_sorted, X_value, X_reduced
+
 
 # Función para cargar las variables del archivo pkl
 def cargar_variables_pkl():
@@ -116,6 +126,18 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
                 st.write("Lista cargada:")
                 st.write(lista_cargada)
+
+                feature_importances_sorted, X_value, X_reduced = asignar_variables_pkl()
+
+                st.write("feature_importances_sorted cargado:")
+                st.write(feature_importances_sorted)
+
+                st.write("X_value cargado:")
+                st.write(X_value)
+
+                st.write("X_reduced cargada:")
+                st.write(X_reduced)
+
             elif metodo_confirmado_secundario in ["SVM (Super Vector Machines)", "Naive Bayes", "KNN"]:
                 st.subheader(f"Métricas para {metodo_confirmado_secundario}")
                 st.write("- Accuracy")
