@@ -55,6 +55,8 @@ n_clusters = var_pkl['n_clusters']
 silhouette_vals = var_pkl['silhouette_vals']
 kmeans_1 = var_pkl['kmeans_1']
 cluster_df = var_pkl['cluster_df']
+score_kemans_g = var_pkl['score_kemans_g']
+
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -284,7 +286,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 ax.set_title('Gráfica de Puntos de Datos con Centroides')
                 st.subheader("Gráfico de Dispersión de los centroides")
                 st.pyplot(fig)
-                
+
                 plt.clf()
 
                 # MAPA DE DISTANCIA ENTRE CLUSTERS
@@ -293,7 +295,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Mapa de Distancia entre Clusters (Intercluster Distance)")
                 st.pyplot(visualizer.fig)
 
-
+                st.markdown(f"<h2 style='font-size: 24px;'>Accuracy: {score_kemans_g:.8f}</h2>", unsafe_allow_html=True)
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
