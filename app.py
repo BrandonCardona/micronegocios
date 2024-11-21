@@ -74,6 +74,10 @@ score_AGclustering_d = HC_results['score_AGclustering_d']
 
 eps_dbScan = var_pkl['eps_dbScan']
 cluster_df_dbScan = var_pkl['cluster_df_dbScan']
+DBSCAN_results = var_pkl['DBSCAN_results']
+score_dbsacn_s = DBSCAN_results['score_AGclustering_s']
+score_dbsacn_c = DBSCAN_results['score_AGclustering_c']
+score_dbsacn_d = DBSCAN_results['score_AGclustering_d']
 
 
 # Configuración de la interfaz
@@ -343,10 +347,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
             
 
                 st.markdown(f"<h2 style='font-size: 24px;'>eps Score: {eps_dbScan:.8f}</h2>", unsafe_allow_html=True)
-
-                st.write("- Pureza")
-                st.write("- Silueta")
-                st.write("- Accuracy")
+                st.markdown(f"<h2 style='font-size: 24px;'>Silhouette Score: {score_dbsacn_s:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Calinski Harabasz Score: {score_dbsacn_c:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Davies Bouldin Score: {score_dbsacn_d:.8f}</h2>", unsafe_allow_html=True)
 
     else:
         st.write("Seleccione un método y haga clic en calcular para ver las métricas.")
