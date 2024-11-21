@@ -16,67 +16,30 @@ def cargar_variables_pkl():
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
 
-# Navbar simulado con columnas
-st.markdown(
-    """
-    <style>
-        .navbar {
-            display: flex;
-            justify-content: center;
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .navbar button {
-            margin: 0 5px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .navbar button:hover {
-            background-color: #e0e0e0;
-        }
-        .navbar button.active {
-            background-color: #007bff;
-            color: white;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # Estado inicial del navbar
 if "navbar_selection" not in st.session_state:
     st.session_state["navbar_selection"] = "Preprocesamiento"
 
-# Función para manejar la selección del navbar
+# Función para cambiar la selección del navbar
 def set_navbar(selection):
     st.session_state["navbar_selection"] = selection
 
-# Renderizar el navbar
-navbar_html = f"""
-<div class="navbar">
-    <button class="{'active' if st.session_state['navbar_selection'] == 'Preprocesamiento' else ''}" onclick="window.location.href='?selection=Preprocesamiento'">Preprocesamiento</button>
-    <button class="{'active' if st.session_state['navbar_selection'] == 'Metodos' else ''}" onclick="window.location.href='?selection=Metodos'">Metodos</button>
-    <button class"```
-={'active' if st.session_state['navbar_selection'] == 'Predicciones' else ''}" onclick="window.location.href='?selection=Predicciones'">Predicciones</button>
-</div>
-"""
-st.markdown(navbar_html, unsafe_allow_html=True)
+# Navbar
+st.sidebar.title("Navegación")
+if st.sidebar.button("Preprocesamiento"):
+    set_navbar("Preprocesamiento")
+if st.sidebar.button("Métodos"):
+    set_navbar("Métodos")
+if st.sidebar.button("Predicciones"):
+    set_navbar("Predicciones")
 
-# Actualizar la selección del navbar según los botones
+# Sección correspondiente al botón seleccionado
 if st.session_state["navbar_selection"] == "Preprocesamiento":
     st.title("Menú de Preprocesamiento")
     st.write("Aquí se mostrarán las opciones relacionadas con el preprocesamiento de datos.")
 
-elif st.session_state["navbar_selection"] == "Metodos":
+elif st.session_state["navbar_selection"] == "Métodos":
     st.title("Menú de Métodos")
-    
     # Inicializar estados en session_state
     if "metodo_confirmado_principal" not in st.session_state:
         st.session_state["metodo_confirmado_principal"] = None
@@ -107,7 +70,7 @@ elif st.session_state["navbar_selection"] == "Metodos":
             metodos_disponibles = ["K-Means", "Clustering jerárquico", "DB-Scan", "GMM (Gaussian Mixture Clustering)"]
         metodo_secundario = st.selectbox(
             "Métodos disponibles",
-            metodos_disponibles if metodo_principal != "Seleccione una opción" else [],
+            metodos_disponibles if metodo_principal != "Seleccione una opción" else [], 
             key="metodo_secundario"
         )
         boton_habilitado = metodo_principal != "Seleccione una opción" and metodo_secundario != ""
