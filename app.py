@@ -284,7 +284,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 ax.set_title('Gráfica de Puntos de Datos con Centroides')
                 st.subheader("Gráfico de Dispersión de los centroides")
                 st.pyplot(fig)
-                st.write("")
+                
+                plt.clf()
+
                 # MAPA DE DISTANCIA ENTRE CLUSTERS
                 visualizer = InterclusterDistance(kmeans_1)
                 visualizer.fit(cluster_df)
