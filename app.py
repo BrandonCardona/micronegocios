@@ -80,7 +80,7 @@ score_dbsacn_c = DBSCAN_results['score_AGclustering_c']
 score_dbsacn_d = DBSCAN_results['score_AGclustering_d']
 
 eps_values = var_pkl['eps_values']
-n_clusterss = var_pkl['n_clusters']
+# n_clusterss = var_pkl['n_clusters']
 optimal_clusters = var_pkl['optimal_clusters']
 optimal_eps = var_pkl['optimal_eps']
 
