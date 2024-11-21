@@ -39,6 +39,8 @@ mse_RF = RF_results['mse_RF']
 y_pr_RF = RF_results['y_pr']
 y_te_RF = RF_results['y_te']
 
+distortions = var_pkl['distortions']
+
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
 
@@ -202,6 +204,16 @@ elif st.session_state["navbar_selection"] == "Métodos":
         elif metodo_confirmado_principal == "Métodos no supervisados":
             if metodo_confirmado_secundario == "K-Means":
                 st.subheader("Métricas para K-Means")
+
+                plt.figure(figsize=(8, 6))
+                plt.plot(range(1, 7), distortions, marker='o')
+                plt.title('Método del Codo para Determinar el Número Óptimo de Clusters')
+                plt.xlabel('Número de Clusters')
+                plt.ylabel('Distorsión')
+                plt.tight_layout()
+                st.subheader("Método del Codo (Elbow Method) para KMeans")
+                st.pyplot(plt)
+
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
