@@ -142,8 +142,10 @@ elif st.session_state["navbar_selection"] == "Métodos":
         if metodo_confirmado_principal == "Métodos supervisados":
             if metodo_confirmado_secundario == "Random Forest":
                 st.subheader("Métricas para Random Forest")
-                st.write(f"**- MSE (Error Cuadrático Medio)**: {mse_RF:.8f}")
-                st.write(f"**- R2 Score**: {r2_RF:.8f}")
+                # st.write(f"**- MSE (Error Cuadrático Medio)**: {mse_RF:.8f}")
+                # st.write(f"**- R2 Score**: {r2_RF:.8f}")
+                st.markdown(f"<h2 style='font-size: 24px;'>- MSE (Error Cuadrático Medio): {mse_RF:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>- R2 Score: {r2_RF:.8f}</h2>", unsafe_allow_html=True)
 
                 residuos = y_pr_RF - y_te_RF
                 st.subheader("Distribución de los Residuos (Errores)")
@@ -156,9 +158,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
             elif  metodo_confirmado_secundario == "SVM (Super Vector Machines)":
                 st.title("Resultados del Modelo Super Vector Machines")
-                st.write(f"**Accuracy**: {accuracy:.8f}")
-                st.write(f"**Recall**: {recall:.8f}")
-                st.write(f"**F1-score**: {f1_score:.8f}")
+                st.markdown(f"<h2 style='font-size: 24px;'>Accuracy: {accuracy:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Recall: {recall:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>F1-score: {f1_score:.8f}</h2>", unsafe_allow_html=True)
 
                 st.write("### Matriz de Confusión")
                 plt.figure(figsize=(8, 6))
@@ -171,9 +173,12 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
             elif  metodo_confirmado_secundario == "Naive Bayes":
                 st.title("Resultados del Modelo Naive Bayes")
-                st.write(f"**Accuracy**: {accuracy_nb:.8f}")
-                st.write(f"**Recall**: {recall_nb:.8f}")
-                st.write(f"**F1-score**: {f1_score_nb:.8f}")
+                # st.write(f"**Accuracy**: {accuracy_nb:.8f}")
+                # st.write(f"**Recall**: {recall_nb:.8f}")
+                # st.write(f"**F1-score**: {f1_score_nb:.8f}")
+                st.markdown(f"<h2 style='font-size: 24px;'>Accuracy: {accuracy_nb:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Recall: {recall_nb:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>F1-score: {f1_score_nb:.8f}</h2>", unsafe_allow_html=True)
 
                 st.write("### Matriz de Confusión")
                 plt.figure(figsize=(8, 6))
@@ -186,9 +191,12 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
             elif  metodo_confirmado_secundario == "KNN":
                 st.title("Resultados del Modelo K-Nearest Neighbors")
-                st.write(f"**Accuracy**: {accuracy_knn:.8f}")
-                st.write(f"**Recall**: {recall_knn:.8f}")
-                st.write(f"**F1-score**: {f1_score_knn:.8f}")
+                # st.write(f"**Accuracy**: {accuracy_knn:.8f}")
+                # st.write(f"**Recall**: {recall_knn:.8f}")
+                # st.write(f"**F1-score**: {f1_score_knn:.8f}")
+                st.markdown(f"<h2 style='font-size: 24px;'>Accuracy: {accuracy_knn:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>Recall: {recall_knn:.8f}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='font-size: 24px;'>F1-score: {f1_score_knn:.8f}</h2>", unsafe_allow_html=True)
 
                 st.write("### Matriz de Confusión")
                 plt.figure(figsize=(8, 6))
