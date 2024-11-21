@@ -156,10 +156,30 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.write("- Matriz de confusión")    
 
         elif metodo_confirmado_principal == "Métodos no supervisados":
-            st.subheader(f"Métricas para {metodo_confirmado_secundario}")
-            st.write("- Pureza")
-            st.write("- Silueta")
-            st.write("- Accuracy")
+            if metodo_confirmado_secundario == "K-Means":
+                st.subheader("Métricas para K-Means")
+                st.write("- Pureza")
+                st.write("- Silueta")
+                st.write("- Accuracy")
+
+            elif metodo_confirmado_secundario == "Clustering jerárquico":
+                st.subheader("Métricas para Clustering jerárquico")
+                st.write("- Pureza")
+                st.write("- Silueta")
+                st.write("- Accuracy")
+
+            elif metodo_confirmado_secundario == "DB-Scan":
+                st.subheader("Métricas para DB-Scan")
+                st.write("- Pureza")
+                st.write("- Silueta")
+                st.write("- Accuracy")
+
+            elif metodo_confirmado_secundario == "GMM (Gaussian Mixture Clustering)":
+                st.subheader("Métricas para GMM (Gaussian Mixture Clustering)")
+                st.write("- Pureza")
+                st.write("- Silueta")
+                st.write("- Accuracy")
+
     else:
         st.write("Seleccione un método y haga clic en calcular para ver las métricas.")
 
