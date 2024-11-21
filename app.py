@@ -221,7 +221,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 visualizer = KElbowVisualizer(model_Kmeans, k=(1, 10), timings=True)
                 visualizer.fit(X_train_reduced_Kmeans)
                 st.subheader("Método del Codo (Elbow Method) para KMeans")
-                visualizer.show()  
+                st.pyplot(visualizer.poof()) 
                 
                 st.write("- Pureza")
                 st.write("- Silueta")
