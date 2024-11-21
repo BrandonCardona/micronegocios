@@ -340,27 +340,9 @@ elif st.session_state["navbar_selection"] == "Métodos":
             elif metodo_confirmado_secundario == "DB-Scan":
                 st.subheader("Métricas para DB-Scan")
 
-                nearest_neighbors = NearestNeighbors(n_neighbors=11)
-                neighbors = nearest_neighbors.fit(cluster_df_dbScan)
-                distances, indices = neighbors.kneighbors(cluster_df_dbScan)
-                distances = np.sort(distances[:, 10], axis=0)  # Tomar las distancias del k-ésimo vecino más cercano
+            
 
-                # Usar KneeLocator para encontrar el "codo" en la curva
-                i = np.arange(len(distances))
-                knee = KneeLocator(i, distances, S=1, curve='convex', direction='increasing', interp_method='polynomial')
-
-                # Crear la gráfica del codo
-                fig = plt.figure(figsize=(5, 5))
-                knee.plot_knee()
-                plt.xlabel("Puntos")
-                plt.ylabel("Distancia")
-
-                # Mostrar el gráfico en Streamlit
-                st.subheader("Método del Codo para DBSCAN")
-                st.pyplot(fig)
-
-                # Mostrar el valor de la distancia en el "codo"
-                st.write(f"Distancia en el codo: {distances[knee.knee]}")
+                st.markdown(f"<h2 style='font-size: 24px;'>eps Score: {eps_dbScan:.8f}</h2>", unsafe_allow_html=True)
 
                 st.write("- Pureza")
                 st.write("- Silueta")
