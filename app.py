@@ -36,7 +36,17 @@ if st.sidebar.button("Predicciones"):
 # Sección correspondiente al botón seleccionado
 if st.session_state["navbar_selection"] == "Preprocesamiento":
     st.title("Menú de Preprocesamiento")
-    st.write("Aquí se mostrarán las opciones relacionadas con el preprocesamiento de datos.")
+    
+    # Botones para "Variables más importantes" y "Matriz de correlación"
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("Variables más importantes"):
+            st.write("Este botón mostrará las variables más importantes del modelo.")
+
+    with col2:
+        if st.button("Matriz de correlación"):
+            st.write("Este botón mostrará la matriz de correlación de las variables.")
 
 elif st.session_state["navbar_selection"] == "Métodos":
     st.title("Menú de Métodos")
@@ -57,7 +67,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
     # Contenedor izquierdo
     with st.sidebar:
         st.title("Opciones")
-        uploaded_file = st.file_uploader("Cargar CSV", type=["csv"])
+        
         metodo_principal = st.selectbox(
             "¿Qué método desea usar?",
             ["Seleccione una opción", "Métodos supervisados", "Métodos no supervisados"],
