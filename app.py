@@ -82,13 +82,6 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
 
 elif st.session_state["navbar_selection"] == "Métodos":
 
-    if "calcular" in st.session_state:
-        st.session_state["calcular"] = False
-    if "metodo_confirmado_principal" in st.session_state:
-        st.session_state["metodo_confirmado_principal"] = None
-    if "metodo_confirmado_secundario" in st.session_state:
-        st.session_state["metodo_confirmado_secundario"] = None
-
     # Inicializar estados en session_state
     if "metodo_confirmado_principal" not in st.session_state:
         st.session_state["metodo_confirmado_principal"] = None
