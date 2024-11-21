@@ -14,12 +14,24 @@ feature_importances_sorted = var_pkl['feature_importances_sorted']
 X_value_copy = var_pkl['X_value_copy']
 X_reduced = var_pkl['X_reduced']
 class_labels = var_pkl['class_labels']
+
 svm_results = var_pkl['svm_results']
 accuracy = svm_results['accuracy']
 recall = svm_results['recall']
 f1_score = svm_results['f1_score']
-classification_report = svm_results['classification_report']
 confusion_matrix = svm_results['confusion_matrix']
+
+nb_results = var_pkl['nb_results']
+accuracy_nb = nb_results['accuracy']
+recall_nb = nb_results['recall']
+f1_score_nb = nb_results['f1_score']
+confusion_matrix_nb = nb_results['confusion_matrix']
+
+knn_results = var_pkl['knn_results']
+accuracy_knn = knn_results['accuracy']
+recall_knn = knn_results['recall']
+f1_score_knn = knn_results['f1_score']
+confusion_matrix_knn = knn_results['confusion_matrix']
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -144,17 +156,33 @@ elif st.session_state["navbar_selection"] == "Métodos":
 
             elif  metodo_confirmado_secundario == "Naive Bayes":
                 st.title("Resultados del Modelo Naive Bayes")
-                st.write("- Accuracy")
-                st.write("- Recall")
-                st.write("- F1 Score")
-                st.write("- Matriz de confusión")
+                st.write(f"**Accuracy**: {accuracy_nb:.8f}")
+                st.write(f"**Recall**: {recall_nb:.8f}")
+                st.write(f"**F1-score**: {f1_score_nb:.8f}")
+
+                st.write("### Matriz de Confusión")
+                plt.figure(figsize=(8, 6))
+                sns.heatmap(confusion_matrix_nb, annot=True, fmt="d", cmap="Blues",
+                            xticklabels=class_labels, yticklabels=class_labels)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                plt.title("Confusion Matrix - SVM")
+                st.pyplot(plt)
 
             elif  metodo_confirmado_secundario == "KNN":
                 st.title("Resultados del Modelo K-Nearest Neighbors")
-                st.write("- Accuracy")
-                st.write("- Recall")
-                st.write("- F1 Score")
-                st.write("- Matriz de confusión")    
+                st.write(f"**Accuracy**: {accuracy_knn:.8f}")
+                st.write(f"**Recall**: {recall_knn:.8f}")
+                st.write(f"**F1-score**: {f1_score_knn:.8f}")
+
+                st.write("### Matriz de Confusión")
+                plt.figure(figsize=(8, 6))
+                sns.heatmap(confusion_matrix_knn, annot=True, fmt="d", cmap="Blues",
+                            xticklabels=class_labels, yticklabels=class_labels)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                plt.title("Confusion Matrix - SVM")
+                st.pyplot(plt)  
 
         elif metodo_confirmado_principal == "Métodos no supervisados":
             if metodo_confirmado_secundario == "K-Means":
