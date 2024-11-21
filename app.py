@@ -54,22 +54,17 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
         st.write("X_reduced cargada:")
         st.write(X_reduced)
 
-        # Generar y mostrar el gráfico
-        st.subheader("Gráfico de Importancia de Variables")
-        # Crear un DataFrame para el gráfico
-        for_plot = pd.DataFrame({'x_axis': X_value.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
+        # st.subheader("Gráfico de Importancia de Variables")
+        
+        # for_plot = pd.DataFrame({'x_axis': X_value.columns, 'y_axis': feature_importances_sorted}).sort_values(by='y_axis', ascending=True)
+        # plt.figure(figsize=(10, 6)) 
+        # for_plot['y_axis'].plot.barh()
 
-        # Crear el gráfico de barras horizontal
-        plt.figure(figsize=(10, 6))  # Ajustar el tamaño de la figura
-        for_plot['y_axis'].plot.barh()
+        # plt.title("Importancia de las Variables")
+        # plt.xlabel("Importancia")
+        # plt.ylabel("Variables")
 
-        # Títulos y etiquetas
-        plt.title("Importancia de las Variables")
-        plt.xlabel("Importancia")
-        plt.ylabel("Variables")
-
-        # Mostrar el gráfico en Streamlit
-        st.pyplot(plt)
+        # st.pyplot(plt)
 
         
     if st.sidebar.button("Matriz de correlación"):
