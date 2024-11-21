@@ -56,9 +56,8 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
     
     if st.sidebar.button("Histogramas"):
         st.subheader("HISTOGRAMAS")
-        plt.figure(figsize=(10, 6))  
-        X_value_copy.hist(bins=20)  
-        plt.tight_layout()  
+        X_value_copy.hist()  
+        plt.tight_layout()
         st.pyplot(plt)
 
     if st.sidebar.button("Matriz de correlación"):
