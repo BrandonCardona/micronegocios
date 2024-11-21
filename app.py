@@ -42,7 +42,6 @@ if st.sidebar.button("Predicciones"):
 if st.session_state["navbar_selection"] == "Preprocesamiento":
     st.sidebar.title("Opciones de Preprocesamiento")
 
-    # Agregar los dos botones en el menú desplegable de la izquierda (barra lateral)
     if st.sidebar.button("Variables más importantes"):
         st.subheader("VARIABLES MAS IMPORTANTES EMPLEANDO RANDOM FOREST")
         
@@ -54,7 +53,14 @@ if st.session_state["navbar_selection"] == "Preprocesamiento":
         plt.xlabel("Importancia")
         plt.ylabel("Variables")
         st.pyplot(plt)
-        
+    
+    if st.sidebar.button("Histogramas"):
+        st.subheader("HISTOGRAMAS")
+        plt.figure(figsize=(10, 6))  
+        X_value_copy.hist(bins=20)  
+        plt.tight_layout()  
+        st.pyplot(plt)
+
     if st.sidebar.button("Matriz de correlación"):
         st.subheader("MATRIZ DE CORRELACIÓN")
         plt.figure(figsize=(20, 20))  
