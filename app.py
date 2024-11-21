@@ -8,6 +8,7 @@ from yellowbrick.cluster import InterclusterDistance
 from sklearn.cluster import KMeans
 import numpy as np
 from matplotlib import cm
+import scipy.cluster.hierarchy as shc
 
 # Ruta al archivo .pkl
 pkl_filename = "models/pickle_modelsvm.pkl"
@@ -63,6 +64,7 @@ score_kemans_c = Kmeans_results['score_kemans_c']
 score_kemans_d = Kmeans_results['score_kemans_d']
 
 modelHC = var_pkl['modelHC']
+X_train_scaled_HC = var_pkl['X_train_scaled_HC']
 
 
 # Configuración de la interfaz
@@ -314,6 +316,14 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 visualizer.fit(cluster_df)
                 st.subheader("Método del Codo para Clustering Jerárquico (AgglomerativeClustering)")
                 st.pyplot(visualizer.fig) 
+                
+                plt.figure(figsize=(10, 7))
+                plt.title("Dendrograma")
+                dend = shc.dendrogram(shc.linkage(X_train_scaled_HC, method='ward'))
+                st.subheader("Dendrograma para Clustering Jerárquico (AgglomerativeClustering)")
+                st.pyplot(plt)
+                
+                
                 st.write("- Pureza")
                 st.write("- Silueta")
                 st.write("- Accuracy")
