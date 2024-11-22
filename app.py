@@ -452,13 +452,22 @@ elif st.session_state["navbar_selection"] == "Predicciones":
 
                     x_in = registro_usuario_escalado.values.reshape(1, -1)
                     predicts_svm = model_svm.predict(x_in)
-                    st.write("Predicción SVM:", predicts_svm[0])
+                    st.markdown(f"<h2 style='font-size: 24px;'>Predicción SVM: {predicts_svm[0]:.8f}</h2>", unsafe_allow_html=True)
+
 
                 elif MetodoSupervisadoSeleccionado == 'Naive Bayes':
                     st.subheader('Naive Bayes')
+
+                    x2_in = registro_usuario_escalado.values.reshape(1, -1)
+                    predicts_nb = model_nb.predict(x2_in)
+                    st.markdown(f"<h2 style='font-size: 24px;'>Predicción Naive Bayes: {predicts_nb[0]:.8f}</h2>", unsafe_allow_html=True)
                 
                 elif MetodoSupervisadoSeleccionado == 'KNN':
                     st.subheader('KNN')
+
+                    x3_in = registro_usuario_escalado.values.reshape(1, -1)
+                    predicts_knn = model_knn.predict(x3_in)
+                    st.markdown(f"<h2 style='font-size: 24px;'>Predicción KNN: {predicts_knn[0]:.8f}</h2>", unsafe_allow_html=True)
 
             except ValueError as e:
                 st.error(f"Error en la transformación: {e}")
