@@ -449,6 +449,8 @@ elif st.session_state["navbar_selection"] == "Predicciones":
                 # Mostrar el registro del usuario escalado
                 st.subheader("Registro del usuario escalado:")
                 st.dataframe(registro_usuario_escalado)
+                st.write(registro_usuario_escalado)
+
             except ValueError as e:
                 st.error(f"Error en la transformación: {e}")
 
