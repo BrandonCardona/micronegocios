@@ -295,7 +295,7 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 plt.xlabel('Coeficiente de Silueta')
                 plt.title('Gráfico de Silueta para KMeans')
                 plt.tight_layout()
-                
+
                 st.subheader("Gráfico de Silueta para KMeans")
                 st.pyplot(plt)
 
@@ -338,7 +338,8 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.markdown(f"<h2 style='font-size: 24px;'>Davies Bouldin Score: {score_kemans_d:.8f}</h2>", unsafe_allow_html=True)
 
             elif metodo_confirmado_secundario == "Clustering jerárquico":
-
+                
+                plt.clf()
                 st.subheader("Métricas para Clustering jerárquico")
                 visualizer = KElbowVisualizer(modelHC, k=(2, 30), timings=True)
                 visualizer.fit(cluster_df)
