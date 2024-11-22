@@ -423,11 +423,19 @@ elif st.session_state["navbar_selection"] == "Predicciones":
             )
         }
 
+        MetodoSupervisado = st.selectbox(
+            "Método Supervisado",
+            ["SVM (Super Vector Machines)", "Naive Bayes", "KNN"],
+            key="MetodoSupervisado"
+        )
+
+        calcular_button = st.button("Calcular")
+
     st.title("Menú de Predicciones")
     st.write("Aquí se mostrarán las opciones relacionadas con predicciones.")
 
     # Botón con clave única
-    if st.button("Calcular", key="Calcular_button"):
+    if calcular_button:
         try:
             # Transformar el registro del usuario
             registro_transformado = transformer.transform(registro_usuario)
