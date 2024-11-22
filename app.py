@@ -435,7 +435,7 @@ elif st.session_state["navbar_selection"] == "Predicciones":
     if calcular_button:
 
         # Verificar si hay opciones no seleccionadas
-        if "Seleccionar..." in registro_usuario.values() or MetodoSupervisado == "Seleccionar...":
+        if "Seleccionar..." in registro_usuario.values() or MetodoSupervisadoSeleccionado == "Seleccionar...":
             st.error("Por favor, selecciona todas las opciones antes de continuar.")
         else:
             try:
