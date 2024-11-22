@@ -329,7 +329,6 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Mapa de Distancia entre Clusters (Intercluster Distance)")
                 st.pyplot(visualizer.fig)
 
-                st.markdown(f"<h2 style='font-size: 24px;'>Gap Statistic Score: {score_kemans_g:.8f}</h2>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='font-size: 24px;'>Silhouette Score: {score_kemans_s:.8f}</h2>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='font-size: 24px;'>Calinski Harabasz Score: {score_kemans_c:.8f}</h2>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='font-size: 24px;'>Davies Bouldin Score: {score_kemans_d:.8f}</h2>", unsafe_allow_html=True)
