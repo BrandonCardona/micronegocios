@@ -434,19 +434,23 @@ elif st.session_state["navbar_selection"] == "Predicciones":
 
     if calcular_button:
 
+        # Verificar si hay opciones no seleccionadas
         if "Seleccionar..." in registro_usuario.values() or MetodoSupervisado == "Seleccionar...":
             st.error("Por favor, selecciona todas las opciones antes de continuar.")
         else:
             try:
-                registro_transformado = transformer.transform(registro_usuario)
-                st.subheader("Datos transformados:")
-                st.json(registro_transformado)
+                # Usar el nuevo método transform_and_scale
+                scaled_df, registro_usuario_escalado = transformer.transform_and_scale(registro_usuario)
                 
-                # Escalar los datos
-                registro_escalado = transformer.apply_scaling(registro_transformado)
+                # Mostrar los datos escalados
                 st.subheader("Datos escalados con MinMaxScaler:")
-                st.dataframe(registro_escalado)
+                st.dataframe(scaled_df)
+                
+                # Mostrar el registro del usuario escalado
+                st.subheader("Registro del usuario escalado:")
+                st.dataframe(registro_usuario_escalado)
             except ValueError as e:
                 st.error(f"Error en la transformación: {e}")
+
 
 

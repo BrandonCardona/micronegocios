@@ -1,8 +1,16 @@
 import pandas as pd
+import pickle
 from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
 
 class DataTransformer:
-    def __init__(self):
+    def __init__(self, pkl_filename):
+        # Cargar el modelo desde el archivo pickle
+        with open(pkl_filename, 'rb') as file:
+            var_pkl = pickle.load(file)
+        
+        # Obtener el df_reducido del pickle
+        self.df_reducido = var_pkl['df_reducido']
+
         self.encoders = {
             "impactoCrecimientoEmpresa": OrdinalEncoder(categories=[["Ninguno", "Bajo", "Medio", "Alto"]]),
             "impactoUtilidadEmpresa": OrdinalEncoder(categories=[["Nada útil", "Poco útil", "Medio", "Alto", "Muy útil"]]),
@@ -19,24 +27,43 @@ class DataTransformer:
             ]]),
             "PlataformaDigital": OrdinalEncoder(categories=[["No", "Si"]]),
         }
+
+        # Ajustar los codificadores con los datos de ejemplo para que puedan hacer la transformación
+        for key, encoder in self.encoders.items():
+            encoder.fit([[category] for category in encoder.categories[0]])
+
+        # Inicializar el MinMaxScaler
         self.scaler = MinMaxScaler()
-    
-    def transform(self, registro):
+
+    def transform_and_scale(self, registro):
+        """
+        Este método recibe un registro del usuario con datos categóricos,
+        lo transforma a numérico, lo agrega a df_reducido, y aplica escalado.
+        """
+        # Transformar los datos del usuario
         transformed_data = {}
         for key, encoder in self.encoders.items():
             if key in registro:
                 value = [[registro[key]]]
-                transformed_value = encoder.fit_transform(value)[0][0]
+                transformed_value = encoder.transform(value)[0][0]
                 transformed_data[key] = transformed_value
             else:
                 raise ValueError(f"Falta el valor para la clave: {key}")
-        
-        return transformed_data
 
-    def apply_scaling(self, transformed_data):
-        # Convertimos los datos transformados a un DataFrame
+        # Convertir los datos transformados a un DataFrame
         df_transformed = pd.DataFrame([transformed_data])
-        # Aplicamos el MinMaxScaler
-        scaled_array = self.scaler.fit_transform(df_transformed)
-        scaled_df = pd.DataFrame(scaled_array, columns=df_transformed.columns)
-        return scaled_df
+
+        # Concatenar el registro transformado con el df_reducido para mantener las mismas columnas
+        df_full = pd.concat([self.df_reducido, df_transformed], ignore_index=True)
+
+        # Aplicar MinMaxScaler solo a los datos
+        scaled_array = self.scaler.fit_transform(df_full)
+
+        # Convertir el array escalado de vuelta a DataFrame
+        scaled_df = pd.DataFrame(scaled_array, columns=df_full.columns)
+
+        # Separar el registro del usuario escalado (última fila del DataFrame)
+        registro_usuario_escalado = scaled_df.iloc[-1:]
+
+        # Retornar el DataFrame escalado completo y el registro del usuario escalado
+        return scaled_df, registro_usuario_escalado
