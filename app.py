@@ -373,5 +373,15 @@ elif st.session_state["navbar_selection"] == "Métodos":
         st.write("Seleccione un método y haga clic en calcular para ver las métricas.")
 
 elif st.session_state["navbar_selection"] == "Predicciones":
+
+    with st.sidebar:
+        st.title("Variables independientes")
+        
+        PlataformaDigital = st.selectbox(
+            "¿Usa Nequi como plataforma digital?",
+            ["Si", "No"],
+            key="PlataformaDigital"
+        )
+
     st.title("Menú de Predicciones")
     st.write("Aquí se mostrarán las opciones relacionadas con predicciones.")
