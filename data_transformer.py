@@ -3,9 +3,9 @@ import pickle
 from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
 
 class DataTransformer:
-    def __init__(self, pkl_filename):
+    def __init__(self):
         # Cargar el modelo desde el archivo pickle
-        with open(pkl_filename, 'rb') as file:
+        with open("models/pickle_modelsvm.pkl", 'rb') as file:
             var_pkl = pickle.load(file)
         
         # Obtener el df_reducido del pickle
