@@ -53,6 +53,14 @@ class DataTransformer:
         # Convertir los datos transformados a un DataFrame
         df_transformed = pd.DataFrame([transformed_data])
 
+        # Asegurarse de que las columnas del df_reducido y el registro transformado coincidan
+        # Renombrar las columnas para que coincidan
+        df_transformed = df_transformed.rename(columns={
+            "impactoCrecimientoEmpresa": "impactoCrecimientoEmpresa_encoded",
+            "impactoUtilidadEmpresa": "impactoUtilidadEmpresa_encoded",
+            "PlataformaDigital": "PlatDig_Nequi"
+        })
+
         # Concatenar el registro transformado con el df_reducido para mantener las mismas columnas
         df_full = pd.concat([self.df_reducido, df_transformed], ignore_index=True)
 
