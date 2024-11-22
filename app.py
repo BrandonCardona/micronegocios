@@ -250,14 +250,14 @@ elif st.session_state["navbar_selection"] == "Métodos":
                 st.subheader("Métricas para K-Means")
 
                 # PRIMER GRAFICO DE CODO
-                plt.figure(figsize=(8, 6))
-                plt.plot(range(1, 7), distortions, marker='o')
-                plt.title('Método del Codo para Determinar el Número Óptimo de Clusters')
-                plt.xlabel('Número de Clusters')
-                plt.ylabel('Distorsión')
-                plt.tight_layout()
-                st.subheader("Método del Codo (Elbow Method) para KMeans")
-                st.pyplot(plt)
+                # plt.figure(figsize=(8, 6))
+                # plt.plot(range(1, 7), distortions, marker='o')
+                # plt.title('Método del Codo para Determinar el Número Óptimo de Clusters')
+                # plt.xlabel('Número de Clusters')
+                # plt.ylabel('Distorsión')
+                # plt.tight_layout()
+                # st.subheader("Método del Codo (Elbow Method) para KMeans")
+                # st.pyplot(plt)
 
                 # SEGUNDO GRAFICO DE CODO
                 visualizer = KElbowVisualizer(model_Kmeans, k=(1, 10), timings=True)
