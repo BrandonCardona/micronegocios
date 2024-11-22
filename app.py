@@ -87,6 +87,10 @@ n_clusters = var_pkl['n_clusters']
 optimal_clusters = var_pkl['optimal_clusters']
 optimal_eps = var_pkl['optimal_eps']
 
+model_svm = var_pkl['model_svm']
+model_nb = var_pkl['model_nb']
+model_knn = var_pkl['model_knn']
+
 
 # Configuración de la interfaz
 st.set_page_config(page_title="Interfaz de Métodos", layout="wide")
@@ -444,13 +448,17 @@ elif st.session_state["navbar_selection"] == "Predicciones":
                 st.write(registro_usuario_escalado)
                 
                 if MetodoSupervisadoSeleccionado == 'SVM (Super Vector Machines)':
-                    st.write('SVM (Super Vector Machines)')
-                
+                    st.subheader('SVM (Super Vector Machines)')
+
+                    x_in = registro_usuario_escalado.values.reshape(1, -1)
+                    predicts_svm = model_svm.predict(x_in)
+                    st.write("Predicción SVM:", predicts_svm[0])
+
                 elif MetodoSupervisadoSeleccionado == 'Naive Bayes':
-                    st.write('Naive Bayes')
+                    st.subheader('Naive Bayes')
                 
                 elif MetodoSupervisadoSeleccionado == 'KNN':
-                    st.write('KNN')
+                    st.subheader('KNN')
 
             except ValueError as e:
                 st.error(f"Error en la transformación: {e}")
