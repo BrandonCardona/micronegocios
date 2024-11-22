@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import OrdinalEncoder
+from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
 
 class DataTransformer:
     def __init__(self):
@@ -9,7 +9,7 @@ class DataTransformer:
             "impactoVentasEmpresa": OrdinalEncoder(categories=[["Nulo", "Bajo", "Medio", "Alto", "Muy alto"]]),
             "numEmpleados": OrdinalEncoder(categories=[["1 o 2 empleados", "3 o 4 empleados", "5 o 6 empleados", "7 o 8 empleados", "9 empleados o más"]]),
             "tiempoUsoPlatDigital": OrdinalEncoder(categories=[["Menos de 1 año", "1 a 2 años", "3 a 4 años", "5 a 6 años", "7 o más años"]]),
-            "VentasMensualesPlatDigitales": OrdinalEncoder(categories=[[
+            "VentasMensualesPlatDigitales": OrdinalEncoder(categories=[[ 
                 "Ninguna, no recibo pagos por medios digitales", 
                 "Rara vez (menos del 20% de los ingresos por ventas son digitales)", 
                 "Pocas (entre 20% y 40% del total de ventas son digitales)", 
@@ -19,6 +19,7 @@ class DataTransformer:
             ]]),
             "PlataformaDigital": OrdinalEncoder(categories=[["No", "Si"]]),
         }
+        self.scaler = MinMaxScaler()
     
     def transform(self, registro):
         transformed_data = {}
@@ -31,3 +32,11 @@ class DataTransformer:
                 raise ValueError(f"Falta el valor para la clave: {key}")
         
         return transformed_data
+
+    def apply_scaling(self, transformed_data):
+        # Convertimos los datos transformados a un DataFrame
+        df_transformed = pd.DataFrame([transformed_data])
+        # Aplicamos el MinMaxScaler
+        scaled_array = self.scaler.fit_transform(df_transformed)
+        scaled_df = pd.DataFrame(scaled_array, columns=df_transformed.columns)
+        return scaled_df

@@ -426,15 +426,14 @@ elif st.session_state["navbar_selection"] == "Predicciones":
         MetodoSupervisado = st.selectbox(
             "Método Supervisado",
             ["Seleccionar...", "SVM (Super Vector Machines)", "Naive Bayes", "KNN"],
-            key="MetodoSupervisado"
+            key="MetodoSupervisadoSeleccionado"
         )
         calcular_button = st.button("Calcular")
 
     st.title("Menú de Predicciones")
-    st.write("Aquí se mostrarán las opciones relacionadas con predicciones.")
 
     if calcular_button:
-        # Verificar que todas las opciones tengan valores válidos seleccionados
+
         if "Seleccionar..." in registro_usuario.values() or MetodoSupervisado == "Seleccionar...":
             st.error("Por favor, selecciona todas las opciones antes de continuar.")
         else:
@@ -442,6 +441,11 @@ elif st.session_state["navbar_selection"] == "Predicciones":
                 registro_transformado = transformer.transform(registro_usuario)
                 st.subheader("Datos transformados:")
                 st.json(registro_transformado)
+                
+                # Escalar los datos
+                registro_escalado = transformer.apply_scaling(registro_transformado)
+                st.subheader("Datos escalados con MinMaxScaler:")
+                st.dataframe(registro_escalado)
             except ValueError as e:
                 st.error(f"Error en la transformación: {e}")
 
