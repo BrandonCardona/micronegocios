@@ -57,7 +57,7 @@ class DataTransformer:
         # Renombrar las columnas para que coincidan
         df_transformed = df_transformed.rename(columns={
             "impactoCrecimientoEmpresa": "impactoCrecimientoEmpresa_encoded",
-            "impactoUtilidadEmpresa": "impactoUtilidadEmpresa_encoded",
+            "impactoUtilidadEmpresa": "impactoUtilidadEmpresa_enconded",
             "PlataformaDigital": "PlatDig_Nequi"
         })
 
