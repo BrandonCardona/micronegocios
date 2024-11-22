@@ -376,48 +376,65 @@ elif st.session_state["navbar_selection"] == "Métodos":
         st.write("Seleccione un método y haga clic en calcular para ver las métricas.")
 
 elif st.session_state["navbar_selection"] == "Predicciones":
-
     with st.sidebar:
         st.title("Variables independientes")
-        
-        registro_usuario = {
-            "PlataformaDigital": st.selectbox("¿Usa Nequi como plataforma digital?", ["No", "Si"], key="PlataformaDigital"),
-            "numEmpleados": st.selectbox("¿Número de empleados de la empresa?", 
-                                         ["1 o 2 empleados", "3 o 4 empleados", "5 o 6 empleados", "7 o 8 empleados", "9 empleados o más"], 
-                                         key="numEmpleados"),
-            "tiempoUsoPlatDigital": st.selectbox("¿Tiempo de uso de la plataforma digital?", 
-                                                 ["Menos de 1 año", "1 a 2 años", "3 a 4 años", "5 a 6 años", "7 o más años"], 
-                                                 key="tiempoUsoPlatDigital"),
-            "impactoVentasEmpresa": st.selectbox("¿Cuál ha sido el impacto de ventas en la empresa con el uso de dichas plataformas digitales?", 
-                                                 ["Nulo", "Bajo", "Medio", "Alto", "Muy alto"], 
-                                                 key="impactoVentasEmpresa"),
-            "impactoUtilidadEmpresa": st.selectbox("¿Cuál ha sido el impacto en la utilidad de la empresa con el uso de dichas plataformas digitales?", 
-                                                   ["Nada útil", "Poco útil", "Medio", "Alto", "Muy útil"], 
-                                                   key="impactoUtilidadEmpresa"),
-            "impactoCrecimientoEmpresa": st.selectbox("¿Cuál ha sido el impacto en el crecimiento de la empresa con el uso de dichas plataformas digitales?", 
-                                                      ["Ninguno", "Bajo", "Medio", "Alto"], 
-                                                      key="impactoCrecimientoEmpresa"),
-            "VentasMensualesPlatDigitales": st.selectbox("¿Qué porcentaje de ingresos recibe del uso de plataformas digitales?", 
-                                                         ["Ninguna, no recibo pagos por medios digitales", 
-                                                          "Rara vez (menos del 20% de los ingresos por ventas son digitales)", 
-                                                          "Pocas (entre 20% y 40% del total de ventas son digitales)", 
-                                                          "Aproximadamente la mitad (entre el 41% y 60%)", 
-                                                          "La mayoría (entre el 61% y 80%)", 
-                                                          "Todas o casi todas (Más del 80% del total de ventas son digitales)"], 
-                                                         key="VentasMensualesPlatDigitales")
-        }
 
-        calcular = st.button("Calcular")
+        # Capturar las selecciones del usuario con claves únicas
+        registro_usuario = {
+            "PlataformaDigital": st.selectbox(
+                "¿Usa Nequi como plataforma digital?", 
+                ["Si", "No"], 
+                key="PlataformaDigital_key"
+            ),
+            "numEmpleados": st.selectbox(
+                "¿Número de empleados de la empresa?", 
+                ["1 o 2 empleados", "3 o 4 empleados", "5 o 6 empleados", "7 o 8 empleados", "9 empleados o más"], 
+                key="numEmpleados_key"
+            ),
+            "tiempoUsoPlatDigital": st.selectbox(
+                "¿Tiempo de uso de la plataforma digital?", 
+                ["Menos de 1 año", "1 a 2 años", "3 a 4 años", "5 a 6 años", "7 o más años"], 
+                key="tiempoUsoPlatDigital_key"
+            ),
+            "impactoVentasEmpresa": st.selectbox(
+                "¿Cuál ha sido el impacto de ventas en la empresa con el uso de dichas plataformas digitales?", 
+                ["Nulo", "Bajo", "Medio", "Alto", "Muy alto"], 
+                key="impactoVentasEmpresa_key"
+            ),
+            "impactoUtilidadEmpresa": st.selectbox(
+                "¿Cuál ha sido el impacto en la utilidad de la empresa con el uso de dichas plataformas digitales?", 
+                ["Nada útil", "Poco útil", "Medio", "Alto", "Muy útil"], 
+                key="impactoUtilidadEmpresa_key"
+            ),
+            "impactoCrecimientoEmpresa": st.selectbox(
+                "¿Cuál ha sido el impacto en el crecimiento de la empresa con el uso de dichas plataformas digitales?", 
+                ["Ninguno", "Bajo", "Medio", "Alto"], 
+                key="impactoCrecimientoEmpresa_key"
+            ),
+            "VentasMensualesPlatDigitales": st.selectbox(
+                "¿Qué porcentaje de ingresos recibe del uso de plataformas digitales?", 
+                ["Ninguna, no recibo pagos por medios digitales", 
+                 "Rara vez (menos del 20% de los ingresos por ventas son digitales)", 
+                 "Pocas (entre 20% y 40% del total de ventas son digitales)", 
+                 "Aproximadamente la mitad (entre el 41% y 60%)", 
+                 "La mayoría (entre el 61% y 80%)", 
+                 "Todas o casi todas (Más del 80% del total de ventas son digitales)"], 
+                key="VentasMensualesPlatDigitales_key"
+            )
+        }
 
     st.title("Menú de Predicciones")
     st.write("Aquí se mostrarán las opciones relacionadas con predicciones.")
 
-    if st.button("Calcular"):
+    # Botón con clave única
+    if st.button("Calcular", key="Calcular_button"):
         try:
-
+            # Transformar el registro del usuario
             registro_transformado = transformer.transform(registro_usuario)
             
+            # Mostrar los datos transformados
             st.subheader("Datos transformados:")
             st.json(registro_transformado)
         except ValueError as e:
             st.error(f"Error en la transformación: {e}")
+
