@@ -423,7 +423,7 @@ elif st.session_state["navbar_selection"] == "Predicciones":
             )
         }
 
-        MetodoSupervisado = st.selectbox(
+        MetodoSupervisadoSeleccionado = st.selectbox(
             "Método Supervisado",
             ["Seleccionar...", "SVM (Super Vector Machines)", "Naive Bayes", "KNN"],
             key="MetodoSupervisadoSeleccionado"
@@ -439,17 +439,18 @@ elif st.session_state["navbar_selection"] == "Predicciones":
             st.error("Por favor, selecciona todas las opciones antes de continuar.")
         else:
             try:
-                # Usar el nuevo método transform_and_scale
                 scaled_df, registro_usuario_escalado = transformer.transform_and_scale(registro_usuario)
-                
-                # Mostrar los datos escalados
-                st.subheader("Datos escalados con MinMaxScaler:")
-                st.dataframe(scaled_df)
-                
-                # Mostrar el registro del usuario escalado
-                st.subheader("Registro del usuario escalado:")
-                st.dataframe(registro_usuario_escalado)
+                st.subheader("Registro escalado:")
                 st.write(registro_usuario_escalado)
+                
+                if MetodoSupervisadoSeleccionado == 'SVM (Super Vector Machines)':
+                    st.write('SVM (Super Vector Machines)')
+                
+                elif MetodoSupervisadoSeleccionado == 'Naive Bayes':
+                    st.write('Naive Bayes')
+                
+                elif MetodoSupervisadoSeleccionado == 'KNN':
+                    st.write('KNN')
 
             except ValueError as e:
                 st.error(f"Error en la transformación: {e}")
