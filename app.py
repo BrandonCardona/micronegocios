@@ -382,6 +382,68 @@ elif st.session_state["navbar_selection"] == "Predicciones":
             ["Si", "No"],
             key="PlataformaDigital"
         )
+        
+        NumEmpleados = st.selectbox(
+            "¿Número de empleados de la empresa?",
+            ["1 o 2 empleados", "3 o 4 empleados", "5 o 6 empleados", 
+             "7 o 8 empleados", "9 empleados o más"],
+            key="NumEmpleados"
+        )
+
+        TiempoUso = st.selectbox(
+            "¿Tiempo de uso de la plataforma digital?",
+            ["Menos de 1 año", "1 a 2 años", "3 a 4 años", 
+             "5 a 6 años", "7 o más años"],
+            key="TiempoUso"
+        )
+
+        ImpactoVentas = st.selectbox(
+            "¿Cuál ha sido el impacto de ventas en la empresa con el uso de dichas plataformas digitales?",
+            ["Nulo", "Bajo", "Medio", "Alto", "Muy alto"],
+            key="ImpactoVentas"
+        )
+
+        ImpactoUtilidad = st.selectbox(
+            "¿Cuál ha sido el impacto en la utilidad de la empresa con el uso de dichas plataformas digitales?",
+            ["Nada útil", "Poco útil", "Medio", "Alto", "Muy útil"],
+            key="ImpactoUtilidad"
+        )
+
+        ImpactoCrecimiento = st.selectbox(
+            "¿Cuál ha sido el impacto en el crecimiento de la empresa con el uso de dichas plataformas digitales?",
+            ["Ninguno", "Bajo", "Medio", "Alto"],
+            key="ImpactoCrecimiento"
+        )
+
+        PorcentajeIngresos = st.selectbox(
+            "¿Qué porcentaje de ingresos recibe del uso de plataformas digitales?",
+            ["Ninguna, no recibo pagos por medios digitales", 
+             "Rara vez (menos del 20% de los ingresos por ventas son digitales)", 
+             "Pocas (entre 20% y 40% del total de ventas son digitales)", 
+             "Aproximadamente la mitad (entre el 41% y 60%)", 
+             "La mayoría (entre el 61% y 80%)", 
+             "Todas o casi todas (Más del 80% del total de ventas son digitales)"],
+            key="PorcentajeIngresos"
+        )
+
+        MetodoSupervisado = st.selectbox(
+            "Método Supervisado",
+            ["SVM (Super Vector Machines)", "Naive Bayes", "KNN"],
+            key="MetodoSupervisado"
+        )
+
+        calcular = st.button("Calcular")
 
     st.title("Menú de Predicciones")
     st.write("Aquí se mostrarán las opciones relacionadas con predicciones.")
+
+    if calcular:
+        st.write("Valores seleccionados:")
+        st.write(f"**Plataforma Digital**: {PlataformaDigital}")
+        st.write(f"**Número de Empleados**: {NumEmpleados}")
+        st.write(f"**Tiempo de Uso**: {TiempoUso}")
+        st.write(f"**Impacto Ventas**: {ImpactoVentas}")
+        st.write(f"**Impacto Utilidad**: {ImpactoUtilidad}")
+        st.write(f"**Impacto Crecimiento**: {ImpactoCrecimiento}")
+        st.write(f"**Porcentaje Ingresos**: {PorcentajeIngresos}")
+        st.write(f"**Método Supervisado**: {MetodoSupervisado}")
